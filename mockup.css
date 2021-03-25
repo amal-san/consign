@@ -1,0 +1,57 @@
+.heading {
+    text-align: center;
+}
+.container {
+    height:auto;
+    width:auto;
+    margin:2rem;
+    background:gold;
+    display: flex;
+    justify-content: space-around;
+}
+
+.landing {
+    padding:10px;
+}
+.landing-content {
+    background:whitesmoke;
+    height:60vh;
+    width:50vh;
+}
+
+.admin-db {
+    display: flex;
+    height: 100%;
+
+}
+
+.ad-first-menu{
+    height: 100%;
+    width:30%;
+    background: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.ad-list-menu {
+    margin:2rem;
+}
+
+.ad-list-menu > div {
+    margin:1rem;
+}
+
+.ad-parcel-header {
+    text-align: center;
+}
+
+.ad-pic {
+    border-radius: 50%;
+}
+
+.ad-second-menu {
+    display: flex;
+    flex-direction: column;
+}
