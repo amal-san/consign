@@ -61,3 +61,33 @@ body {
     justify-content: space-evenly;
     height: 90%;
 }
+
+.login-div {
+  margin: 0 auto;
+  text-align: center;
+  padding:2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 35%;
+  box-shadow: 2px 4px 9px 0px #9f9f9f;
+  border-top: 4px solid green;
+  border-radius:4px;
+  margin-top:-10%;
+  background:white
+}
+
+#basic {
+  width: 100%!important;
+
+}
+
+.home-nav {
+  height:20%;
+  background:  linear-gradient(90deg, #11FFBD 0%, #AAFFA9 100%);
+}
+
+.home-page {
+  margin-top: -15%;
+  background:transparent!important;
+}

@@ -1,9 +1,11 @@
 import '../App.css';
 import { Button } from '../components/buttons/PrimaryButton'
 import { Container } from '../components/layout/Container'
-import WaveBottom from '../assets/Bottom.png'
+import WaveBottom from '../assets/Triangle.png'
+import Plane from '../assets/Plane.png'
 import World from '../assets/World.png'
 import ContentWaveBottom from '../assets/ContentBottom.png'
+import TopBg from '../assets/TopBackground.png'
 import ContentWaveTop from '../assets/ContentTop.png'
 import InfiniteScroll from 'react-infinite-scroller';
 import 'antd/dist/antd.css'
@@ -16,7 +18,10 @@ function Home() {
   return (
     <Container primary width="100%" height="100vh">
       <InfiniteScroll hasMore={false} style={{ height: '100vh' }}>
-        <img src={WaveBottom} width="100%" height="20%" />
+        {/* <img src={WaveBottom} width="100%" height="20%" /> */}
+        <div className="home-nav"></div>
+        <img src={TopBg} width="100%" height="20%"/>
+        <div style={{textAlign:'center'}}><img style={{marginTop:'-30%'}} src={Plane} width="50%" height="20%" /></div>
         <Container className="home-page" primary width="100%" height="100%" bg="white" display="flex" justify="space-around" align="center">
           <Container >
             <h1 style={{ fontSize: 'x-large', fontFamily: 'Graphik,sans-serif' }}>Smart way of sending Parcels <br></br><span style={{ fontSize: 'xxx-large', color: '#28ca3d' }}>Consign </span></h1>
