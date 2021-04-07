@@ -1,13 +1,13 @@
 import '../App.css';
 import { Container } from '../components/layout/Container'
-import WaveBottom from '../assets/Bottom.png'
 import TopBg from '../assets/TopBackground.png'
-import World from '../assets/World.png'
 import { Form, Input, Button, Checkbox } from 'antd';
 import SearchPicture from '../assets/Search.png'
 import ContentWaveTop from '../assets/ContentTop.png'
 import InfiniteScroll from 'react-infinite-scroller';
 import 'antd/dist/antd.css'
+import { useHistory } from "react-router-dom";
+
 
 
 const { Search } = Input;
@@ -31,9 +31,11 @@ const layout = {
 
 
 const Login = () => {
-  
-    const onSearch = value => console.log(value);
 
+    const history = useHistory();
+
+    const handleHome = () => history.push('/')
+  
     const onFinish = (values) => {
           console.log('Success:', values);
     };
@@ -44,9 +46,12 @@ const Login = () => {
 
     return (
         <Container primary width="100%" height="100vh">
-            <div className="home-nav" style={{height:'40%'}}></div>
+            <div className="login-nav">
+                <h1 onClick={handleHome}> 🏡 </h1>
+                <h1> 🔓 login </h1>
+                <h1>  </h1>
+            </div>
             <div className="login-div">
-                <h1>login</h1>
                 <div style={{width:'100%'}}>
                 <Form
                     name="basic"

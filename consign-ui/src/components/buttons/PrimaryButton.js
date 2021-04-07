@@ -10,6 +10,7 @@ const Button = styled.button`
   padding: ${props => props.padding ? props.padding : "8px 10px" };
   border: ${props => props.border ? props.border : "none" };;
   border-radius: 3px;
+  cursor:pointer;
 `;
 
 

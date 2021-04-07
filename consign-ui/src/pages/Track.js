@@ -1,11 +1,8 @@
 import '../App.css';
 import { Container } from '../components/layout/Container'
-import WaveBottom from '../assets/Bottom.png'
-import World from '../assets/World.png'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Input } from 'antd';
+import { useHistory } from 'react-router-dom'
 import SearchPicture from '../assets/Search.png'
-import ContentWaveTop from '../assets/ContentTop.png'
-import InfiniteScroll from 'react-infinite-scroller';
 import 'antd/dist/antd.css'
 
 
@@ -13,14 +10,21 @@ const { Search } = Input;
 
 
 const Track = () => {
+
+    const history = useHistory();
+
+    const handleHome = () => history.push('/')
   
     const onSearch = value => console.log(value);
 
     return (
         <Container primary width="100%" height="100vh">
-            <img src={WaveBottom} width="100%" height="20%" />
+            <div className="track-nav">
+                <h1 onClick={handleHome}> 🏡 </h1>
+                <h1> 🔔 track consignments here</h1>
+                <h1>  </h1>
+            </div>
             <div className="tracking-div">
-                <h1>track consignments here</h1>
                 <Search
                 style={{width:'50%'}}
                 placeholder="enter tracking code here "

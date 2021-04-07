@@ -9,30 +9,40 @@ import TopBg from '../assets/TopBackground.png'
 import ContentWaveTop from '../assets/ContentTop.png'
 import InfiniteScroll from 'react-infinite-scroller';
 import 'antd/dist/antd.css'
+import { useHistory } from "react-router-dom";
+
 
 
 function Home() {
 
-  const onTrack = () =>  window.location.replace('/login')
+  const history = useHistory();
+
+  const onTrack = () =>  history.push('/track')
+
+  const onLogin = () => history.push('/login')
 
   return (
     <Container primary width="100%" height="100vh">
       <InfiniteScroll hasMore={false} style={{ height: '100vh' }}>
         {/* <img src={WaveBottom} width="100%" height="20%" /> */}
-        <div className="home-nav"></div>
+        <div className="home-nav">
+        </div>
         <img src={TopBg} width="100%" height="20%"/>
-        <div style={{textAlign:'center'}}><img style={{marginTop:'-30%'}} src={Plane} width="50%" height="20%" /></div>
         <Container className="home-page" primary width="100%" height="100%" bg="white" display="flex" justify="space-around" align="center">
           <Container >
             <h1 style={{ fontSize: 'x-large', fontFamily: 'Graphik,sans-serif' }}>Smart way of sending Parcels <br></br><span style={{ fontSize: 'xxx-large', color: '#28ca3d' }}>Consign </span></h1>
             <p>The fastest parceling system around the globe</p>
             <Container>
-              <Button bg="#28ca3d" color="white" shadow="3px 4px 5px 0px #a5a398" > Login </Button>
+              <Button bg="#28ca3d" color="white" shadow="3px 4px 5px 0px #a5a398" onClick={onLogin} > Login </Button>
               <Button bg="#28ca3d" color="white" shadow="3px 4px 5px 0px #a5a398" onClick={onTrack}> Track </Button>
             </Container>
           </Container>
           <img src={World} width="50%" />
         </Container>
+        <div className="timeline" style={{textAlign:'center'}}>
+          <h1><span>📦</span> ------------------- <span>🛫</span> -------------------  <span>✔️</span> </h1>
+          {/* <img style={{marginTop:'-30%'}} src={Plane} width="50%" height="20%" /> */}
+        </div>  
         <Container primary width="100%" height="50%" bg="white" display="flex" justify="space-evenly" align="center" style={{ flexDirection: 'column', marginBottom: '8rem' }} >
           <h2 style={{color:'#28ca3d'}}>Why consign ? </h2>
           <img src={ContentWaveTop} height="20%" style={{ alignSelf: 'flex-end', marginRight: '2rem', marginTop: '10px' }}></img>
