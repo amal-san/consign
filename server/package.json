@@ -1,0 +1,17 @@
+{
+  "name": "consign-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "amalsan",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "graphql": "15.5.0",
+    "graphql-yoga": "^1.18.3",
+    "mongoose": "^5.12.3"
+  },
+  "resolutions": {
+    "graphql":"^15.5.0"
+  }
+}
