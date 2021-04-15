@@ -1,13 +1,21 @@
 const typeDefs = `
 
 type Mutation {
-	userAdd(username:String! password:String!): UserType!
+	createUser(username:String! password:String! details:String): [LoginUserType]!
 	userUpdate(username:String! password:String!): UserType!
 	userDelete(username:String! password:String!): UserType!
     parcelAdd(name:String! weight:String! details_of_reciever:String! details_of_sender:String!): ParcelType!
     parcelUpdate(tracking_id:String!): ParcelType!
     parcelDelete(tracking_id:String!): ParcelType!
 }
+
+type LoginUserType {
+    id:String!
+    username:String!
+    details:String
+    token:String
+}
+
 type UserType {
 	_id:String!
 	username:String!
@@ -30,6 +38,7 @@ type ParcelType {
 type Query {
   Info: String!
   Users: [UserType]!
+  Login(username:String! password:String!):[LoginUserType]!
   Parcels: [ParcelType]!
   ParcelInfo(tracking_id:String!):ParcelType
   DeliverdParcels: [ParcelType]

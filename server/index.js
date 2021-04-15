@@ -11,7 +11,5 @@ mongoConn.on('error', function() {
 });
 mongoConn.once('open',function() {
     console.log('Database connected 👍')
-    app.listen(port, () => {
-        console.log(`Consign server is running on port ${port}.`);
-    });
+    app.start(() => console.log(`Server is running on http://localhost:4000`))
 })
