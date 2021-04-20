@@ -5,7 +5,12 @@ const resolvers = require('./graphql/resolvers')
 const app = new GraphQLServer({
     typeDefs,
     resolvers,
+    context: req => ({ ...req }),
+    headers: req => ({...req.headers}),
+
 })
+
+
 
 module.exports = app;
 

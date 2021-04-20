@@ -10,10 +10,11 @@ const createToken = ( id ) => {
     return token
 }
 
-const validateToken = ( data ) => {
+const validateToken = ( context ) => {
+    let token = context.request.headers.authorization.split("Bearer")[1].slice(1)
     let jwtSecretKey = process.env.JWT_SECRET_KEY;
     try {
-        const verified = jwt.verify(data, jwtSecretKey);
+        const verified = jwt.verify(token, jwtSecretKey);
         return verified ? true : false
     } catch (error) {
         return false

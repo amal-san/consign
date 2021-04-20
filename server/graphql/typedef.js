@@ -26,12 +26,12 @@ type ParcelType {
 	_id:String!
 	name:String!
 	weight:String!
-    details_of_reciver:String!
-    details_of_sender:String!
+    receiver:String!
+    sender:String!
     created_at:String
     deliver_status:Boolean
     tracking_id:String
-    tracking_details:String
+    tracking_details:[String]
 }
 
 
@@ -39,9 +39,9 @@ type Query {
   Info: String!
   Users: [UserType]!
   Login(username:String! password:String!):[LoginUserType]!
-  Parcels: [ParcelType]!
   ParcelInfo(tracking_id:String!):ParcelType
-  DeliverdParcels: [ParcelType]
+  Parcels: [ParcelType]!
+  DeliveredParcels: [ParcelType]
 }
 `
 
