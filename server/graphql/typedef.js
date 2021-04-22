@@ -4,9 +4,9 @@ type Mutation {
 	createUser(username:String! password:String! details:String): [LoginUserType]!
 	userUpdate(username:String! password:String!): UserType!
 	userDelete(username:String! password:String!): UserType!
-    parcelAdd(name:String! weight:String! details_of_reciever:String! details_of_sender:String!): ParcelType!
-    parcelUpdate(tracking_id:String!): ParcelType!
-    parcelDelete(tracking_id:String!): ParcelType!
+    createParcel(name:String! weight:String! receiver:String! sender:String! created_at:String!): ParcelType!
+    updateParcel(tracking_id:String! name:String weight:String receiver:String sender:String tracking_details:String status:Boolean): ParcelType!
+    deleteParcel(tracking_id:String!): ParcelType!
 }
 
 type LoginUserType {

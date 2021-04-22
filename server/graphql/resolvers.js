@@ -14,16 +14,25 @@ const resolvers = {
 
         Parcels: async () => ParcelController.Parcels(),
 
-        ParcelInfo: async (parent, args ) => ParcelController.findParcelById(args),
+        ParcelInfo: async (parent, args ) => ParcelController.findParcelByTrackingId(args),
+
 
         DeliveredParcels: async ( parent, args ,context) => 
-        Auth.validateToken(context) ? 
-        ParcelController.findParcelDeliveries() : 
-        new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
+        // Auth.validateToken(context) ? 
+        ParcelController.findParcelDeliveries() 
+        // : new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
 
     },
     Mutation: {
         createUser : async (parent, args) => UserController.createUser(args),
+        createParcel : async (parent, args, context) => ParcelController.createParcel(args),
+            // Auth.validateToken(context) === true ? ParcelController.createParcel(args) : null,
+        updateParcel: async ( parent, args, context) => 
+            ParcelController.updateParcel(args),
+        deleteParcel: async ( parent , args, context ) => 
+            ParcelController.deleteParcel(args),
+
+        
 
     }
 }

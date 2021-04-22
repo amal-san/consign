@@ -5,7 +5,27 @@ const httpStatus = require('http-status')
 
 
 
-const findParcelById = async (body) => {
+const createParcel = async ( body ) => {
+    const parcelBody = validate.validateParcelCreate(body)
+    if(parcelBody.error) throw parcelBody.error
+    return await parcelService.createParcel(parcelBody.value);
+}
+
+
+const updateParcel = async (body) => {
+    const parcelUpdate = validate.validateParcelOnId(body)
+    if(parcelUpdate.error) throw parcelUpdate.error
+    return await parcelService.updateParcelByTrackingId(body) 
+}
+
+const deleteParcel = async ( body ) => {
+    const parcelDelete = validate.validateParcelOnId(body)
+    if(parcelDelete.error) throw parcelDelete.error
+    return await parcelService.deleteParcelByTrackingId(body) 
+
+}
+
+const findParcelByTrackingId = async (body) => {
     const data = await parcelService.findParcelByTrackingId(body)
     return  data.length > 0 ? data : new ApiError(httpStatus.NOT_FOUND, "parcel not found")
 }
@@ -21,7 +41,10 @@ const findParcelDeliveries = async () => {
 }
 
 module.exports = {
-    findParcelById,
+    findParcelByTrackingId,
     Parcels,
-    findParcelDeliveries
+    findParcelDeliveries,
+    createParcel,
+    updateParcel,
+    deleteParcel,
 }

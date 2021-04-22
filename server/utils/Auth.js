@@ -15,9 +15,9 @@ const validateToken = ( context ) => {
     let jwtSecretKey = process.env.JWT_SECRET_KEY;
     try {
         const verified = jwt.verify(token, jwtSecretKey);
-        return verified ? true : false
+        return verified ? true : new Error
     } catch (error) {
-        return false
+        return new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
     };
 }
 

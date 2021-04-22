@@ -35,6 +35,8 @@ const parcelSchema = new Schema({
   },
   tracking_id: {
     type:String,
+    unique:true,
+    trim:true
   },
   tracking_details: {
     type:[String],
