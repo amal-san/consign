@@ -2,6 +2,7 @@ import './App.css';
 import Home from './pages/Home'
 import Track from './pages/Track'
 import Login from './pages/Login'
+import Admin from './pages/Admin'
 
 import {
   BrowserRouter, Switch, Route
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/track" component={Track}/>
         <Route path="/login" component={Login}/>
+        <Route path="/admin" component={Admin}/>
 
       </Switch>
  </BrowserRouter>
