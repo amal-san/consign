@@ -48,11 +48,12 @@ const Login = () => {
         <Container primary width="100%" height="100vh">
             <div className="login-nav">
                 <h1 onClick={handleHome}> 🏡 </h1>
-                <h1> 🔓 login </h1>
+                <h1> 🔓 Sign-in </h1>
                 <h1>  </h1>
             </div>
             <div className="login-div">
                 <div style={{width:'100%'}}>
+                    <h2>Sign-in</h2>
                 <Form
                     name="basic"
                     initialValues={{

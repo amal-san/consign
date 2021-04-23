@@ -1,6 +1,7 @@
 import '../App.css';
 import { Button } from '../components/buttons/PrimaryButton'
 import { Container } from '../components/layout/Container'
+// import { FaPlane } from 'react-icons/fa';
 import WaveBottom from '../assets/Triangle.png'
 import Plane from '../assets/Plane.png'
 import World from '../assets/World.png'
@@ -26,15 +27,16 @@ function Home() {
       <InfiniteScroll hasMore={false} style={{ height: '100vh' }}>
         {/* <img src={WaveBottom} width="100%" height="20%" /> */}
         <div className="home-nav">
+          <h1> send your parcels around the globe</h1>
         </div>
-        <img src={TopBg} width="100%" height="20%"/>
-        <Container className="home-page" primary width="100%" height="100%" bg="white" display="flex" justify="space-around" align="center">
+        {/* <img src={TopBg} width="100%" height="20%"/> */}
+        <Container className="home-page" primary width="100%" height="100%" bg="white" display="flex" justify="space-around" align="center" style={{paddingTop:'10%'}}>
           <Container >
-            <h1 style={{ fontSize: 'x-large', fontFamily: 'Graphik,sans-serif' }}>Smart way of sending Parcels <br></br><span style={{ fontSize: 'xxx-large', color: '#28ca3d' }}>Consign </span></h1>
-            <p>The fastest parceling system around the globe</p>
+            <h1 style={{ fontSize: 'x-large' }}>smart way of sending parcels <br></br><span style={{ fontSize: 'xxx-large', color: '#28ca3d' }}>Consign </span></h1>
+            <p>the fastest parceling system around the globe</p>
             <Container>
-              <Button bg="#28ca3d" color="white" shadow="3px 4px 5px 0px #a5a398" onClick={onLogin} > Login </Button>
-              <Button bg="#28ca3d" color="white" shadow="3px 4px 5px 0px #a5a398" onClick={onTrack}> Track </Button>
+              <Button bg="#28ca3d" color="white" shadow="3px 4px 5px 0px #a5a398" onClick={onLogin} > login </Button>
+              <Button bg="#28ca3d" color="white" shadow="3px 4px 5px 0px #a5a398" onClick={onTrack}> track </Button>
             </Container>
           </Container>
           <img src={World} width="50%" />
@@ -44,7 +46,7 @@ function Home() {
           {/* <img style={{marginTop:'-30%'}} src={Plane} width="50%" height="20%" /> */}
         </div>  
         <Container primary width="100%" height="50%" bg="white" display="flex" justify="space-evenly" align="center" style={{ flexDirection: 'column', marginBottom: '8rem' }} >
-          <h2 style={{color:'#28ca3d'}}>Why consign ? </h2>
+          <h2 style={{color:'#28ca3d'}}>why consign ? </h2>
           <img src={ContentWaveTop} height="20%" style={{ alignSelf: 'flex-end', marginRight: '2rem', marginTop: '10px' }}></img>
           <p style={{ margin: '2rem' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel velit tempor, egestas mauris at, lacinia nunc. Fusce elementum diam sit amet ultrices dapibus. Cras at dapibus purus. Sed ac maximus arcu, quis maximus diam. In ultricies lacus eget tortor ultricies, vitae rutrum turpis luctus. Nulla at ante vitae eros hendrerit mattis sit amet ut est. Proin eu urna ex. Mauris auctor, augue a convallis suscipit, sem sapien luctus magna, eget varius velit augue ut orci. Maecenas libero felis, vestibulum ut aliquam a, egestas non tortor.
           Aenean placerat tincidunt consequat. Vivamus vestibulum laoreet urna, et tempus eros volutpat vel. Pellentesque et neque egestas, finibus velit ut, facilisis nibh. Sed magna risus, porta sit amet tempus in, ullamcorper vel erat. Sed laoreet risus ut posuere mollis. Cras et sapien justo. Donec molestie ipsum sed arcu convallis egestas. Proin convallis ullamcorper porta. Nulla quis porttitor arcu. Curabitur dignissim in augue vel pharetra.
