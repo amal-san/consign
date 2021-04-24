@@ -48,6 +48,10 @@ const UpdateParcel = () => {
     setIsModalVisible(false);
   };
 
+  const onSubmit = (values) => {
+      form.submit();
+  }
+
 
   const onFinish = (values) => {
     console.log(values);
@@ -132,12 +136,12 @@ const UpdateParcel = () => {
       <Form.Item name="date-picker" label="DatePicker" {...config}>
         <DatePicker />
       </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
     </Form>
+    <div className="modal-footer">
+        <p className="modal-submit" onClick={onSubmit}>
+          Submit
+        </p>
+    </div>
       </Modal>
     </>
   );

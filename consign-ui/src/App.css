@@ -227,3 +227,26 @@ body {
   transform: scale(0.96);
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
+
+.modal-submit{
+  text-align: center;
+    margin: .5rem;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: #5effb2;
+    border: 1px solid #757d7b;
+    border-radius: 7px;
+    border-bottom: 4px solid #757d7b;
+    cursor: pointer;
+    width: 80px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-submit:active{
+  transform: scale(0.96);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}

@@ -37,6 +37,9 @@ const CreateParcel = () => {
   const handleOk = () => {
     setIsModalVisible(false);
   };
+  const onSubmit = (values) => {
+      form.submit();
+  }
 
   const onFinish = (values) => {
     console.log(values);
@@ -96,12 +99,12 @@ const CreateParcel = () => {
       >
         <Input.TextArea />
       </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-        <Button htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
     </Form>
+    <div className="modal-footer">
+        <p className="modal-submit" onClick={onSubmit}>
+          Submit
+        </p>
+    </div>
       </Modal>
     </>
   );
