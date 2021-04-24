@@ -35,10 +35,15 @@ const validateMessages = {
   /* eslint-enable no-template-curly-in-string */
 
 
-const UpdateParcel = () => {
+const UpdateParcel = (props) => {
+  let data;
 
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  if(props) {
+    data = props.data
+  }
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -69,11 +74,10 @@ const UpdateParcel = () => {
       </p>
       <Modal title="Edit Parcel" visible={isModalVisible} footer={[]} onCancel={handleCancel}>
       <Form form={form} name="control-hooks" {...layout} name="nest-messages" validateMessages={validateMessages} onFinish={onFinish}>
-          <h3 style={{textAlign:'center'}}>ID: 123ldafe23423</h3>
+          <h2 style={{textAlign:'center'}}>Tracking ID: {data ? data.tracking_id : null}</h2>
       <Form.Item
         name={['parcel', 'name']}
         label="Name"
-        disabled
         rules={[
           {
             required: true,

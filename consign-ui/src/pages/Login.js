@@ -1,12 +1,17 @@
 import '../App.css';
 import { Container } from '../components/layout/Container'
 import TopBg from '../assets/TopBackground.png'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox ,message } from 'antd';
 import SearchPicture from '../assets/Search.png'
 import ContentWaveTop from '../assets/ContentTop.png'
 import InfiniteScroll from 'react-infinite-scroller';
 import 'antd/dist/antd.css'
 import { useHistory } from "react-router-dom";
+import { useQuery, gql } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
+import { useEffect } from 'react';
+
+
 
 
 
@@ -27,21 +32,47 @@ const layout = {
     },
   };
   
-
+const LOGIN_QUERY = gql` 
+query Login($username:String! $password:String!) {
+    Login(username:$username password:$password){
+    username 
+  }
+}`
 
 
 const Login = () => {
 
+
+    useEffect(() => {
+        if(error){
+            message.warn("Incorrect username or password")
+        }
+        if(data){
+            history.push('/admin')
+        }
+    })
+
+    const [Login, { loading, data , error }] = useLazyQuery(LOGIN_QUERY);
+
+    const [form] = Form.useForm();
+
+
     const history = useHistory();
+
+    const onSubmit = (values) => {
+        form.submit()
+    }
 
     const handleHome = () => history.push('/')
   
     const onFinish = (values) => {
-          console.log('Success:', values);
+        Login({ variables: { username: values.username, password: values.password } })
+        message.info("Logging in...")
+        
     };
+   
       
     const onFinishFailed = (errorInfo) => {
-          console.log('Failed:', errorInfo);
     };
 
     return (
@@ -55,6 +86,7 @@ const Login = () => {
                 <div style={{width:'100%'}}>
                     <h2>Sign-in</h2>
                 <Form
+                    form={form}
                     name="basic"
                     initialValues={{
                         remember: true,
@@ -87,13 +119,12 @@ const Login = () => {
                     >
                         <Input.Password />
                     </Form.Item>
-
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                    </Button>
-                    </Form.Item>
                 </Form>
+                <div className="modal-footer">
+                    <p className="modal-submit" onClick={onSubmit}>
+                    Log in
+                    </p>
+                </div>
                 </div>
             </div>
         </Container>

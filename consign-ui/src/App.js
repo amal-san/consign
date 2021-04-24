@@ -3,11 +3,10 @@ import Home from './pages/Home'
 import Track from './pages/Track'
 import Login from './pages/Login'
 import Admin from './pages/Admin'
-
+import React from 'react';
 import {
   BrowserRouter, Switch, Route
 } from 'react-router-dom'
-
 
 
 function App() {

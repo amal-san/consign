@@ -3,15 +3,36 @@ import { Container } from '../components/layout/Container'
 import 'antd/dist/antd.css'
 import { useHistory } from "react-router-dom";
 import CreateParcel from '../components/modals/CreateParcel'
-import UpdateParcel from '../components/modals/UpdateParcel'
-import DeleteParcel from '../components/popup/DeleteParcel';
+import ParcelCard from '../components/ParcelCard'
+import { useQuery, gql } from '@apollo/client';
+import ParcelCardLoader from '../components/loader/ParcelCardLoader';
 
+
+const PARCEL_QUERIES = gql`
+query {
+    Parcels{
+      name
+      deliver_status
+      tracking_id
+      tracking_details
+      weight
+      sender
+      receiver
+      created_at
+    }
+  }
+`;
 
 
 const Admin = () => {
 
     const history = useHistory();
+    const { loading, error, data } = useQuery(PARCEL_QUERIES);
 
+
+    const onLogout = () => {
+        history.push('/')
+    }
     return (
         <Container primary width="100%" height="100vh">
             <div className="login-nav">
@@ -26,47 +47,24 @@ const Admin = () => {
                     <p> ⚙️ Account Settings </p>
                 </div>
                 <div>
-                 <p>🔓 logout </p> 
+                 <p onClick={onLogout}>🔓 logout </p> 
                 </div>
-                
             </div>
             <div className="admin-box">
-            <div className="admin-box-content">
-                <h2>Name</h2>
-                <p>Sender</p>
-                <p>Reciever</p>
-                <p> Details </p>
-                <p>Tracking Id</p>
-                <p>Created at</p>
-                <div className="admin-box-settings">
-                    <UpdateParcel/>
-                    <DeleteParcel/>
-                </div>
-            </div>
-            <div className="admin-box-content">
-                <h2>Name</h2>
-                <p>Sender</p>
-                <p>Reciever</p>
-                <p> Details </p>
-                <p>Tracking Id</p>
-                <p>Created at</p>
-                <div className="admin-box-settings">
-                    <UpdateParcel/>
-                    <DeleteParcel/>
-                </div>
-            </div>
-            <div className="admin-box-content">
-                <h2>Name</h2>
-                <p>Sender</p>
-                <p>Reciever</p>
-                <p> Details </p>
-                <p>Tracking Id</p>
-                <p>Created at</p>
-                <div className="admin-box-settings">
-                    <UpdateParcel/>
-                    <DeleteParcel/>
-                </div>
-            </div>
+            {loading ? <ParcelCardLoader/>: null}
+            {data ? data.Parcels.map((parcel,i) => 
+                <ParcelCard
+                key={i}
+                id={parcel._id}
+                name={parcel.name}
+                sender={parcel.sender}
+                receiver={parcel.receiver}
+                created_at={parcel.created_at}
+                tracking_id={parcel.tracking_id}
+                tracking_details={parcel.tracking_details}
+                />
+            ): null}  
+            {error ? "empty....":null}
             </div>
         </Container>
     )
