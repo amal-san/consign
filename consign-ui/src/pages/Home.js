@@ -35,8 +35,8 @@ function Home() {
             <h1 style={{ fontSize: 'x-large' }}>smart way of sending parcels <br></br><span style={{ fontSize: 'xxx-large', color: '#28ca3d' }}>Consign </span></h1>
             <p>the fastest parceling system around the globe</p>
             <Container>
-              <Button bg="#28ca3d" color="white" shadow="3px 4px 5px 0px #a5a398" onClick={onLogin} > login </Button>
-              <Button bg="#28ca3d" color="white" shadow="3px 4px 5px 0px #a5a398" onClick={onTrack}> track </Button>
+              <Button bg="#5effb2" color="black" className="home-btn" onClick={onLogin} > login </Button>
+              <Button bg="#5effb2" color="black" className="home-btn" onClick={onTrack}> track </Button>
             </Container>
           </Container>
           <img src={World} width="50%" />
