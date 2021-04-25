@@ -1,6 +1,7 @@
 import React, { useState , useEffect} from 'react';
 import { Modal, Button } from 'antd';
 import { Form, Input, DatePicker, TimePicker, Switch, InputNumber } from 'antd';
+import moment from 'moment';
 
 
 const layout = {
@@ -12,15 +13,8 @@ const layout = {
     },
 };
 
-const config = {
-    rules: [
-      {
-        type: 'object',
-        required: true,
-        message: 'Please select time!',
-      },
-    ],
-  };
+
+const dateFormat = 'DD-MM-YYYY'
 
 const validateMessages = {
     required: '${label} is required!',
@@ -46,6 +40,7 @@ const UpdateParcel = (props) => {
   }
 
   const showModal = () => {
+    console.log(data)
     setIsModalVisible(true);
   };
 
@@ -73,11 +68,17 @@ const UpdateParcel = (props) => {
       📝     
       </p>
       <Modal title="Edit Parcel" visible={isModalVisible} footer={[]} onCancel={handleCancel}>
-      <Form form={form} name="control-hooks" {...layout} name="nest-messages" validateMessages={validateMessages} onFinish={onFinish}>
+      <Form 
+        form={form} 
+        name="control-hooks" 
+        {...layout} 
+        validateMessages={validateMessages} 
+        onFinish={onFinish}>
           <h2 style={{textAlign:'center'}}>Tracking ID: {data ? data.tracking_id : null}</h2>
       <Form.Item
         name={['parcel', 'name']}
         label="Name"
+        initialValue = {data ? data.name : null}
         rules={[
           {
             required: true,
@@ -89,6 +90,7 @@ const UpdateParcel = (props) => {
       <Form.Item
         name={['parcel', 'weight']}
         label="Weight"
+        initialValue = {data ? data.weight : null}
         rules={[
           {
             required: true,
@@ -99,6 +101,7 @@ const UpdateParcel = (props) => {
       </Form.Item>
       <Form.Item name={['parcel', 'sender']} 
       label="Sender"
+      initialValue = {data ? data.sender : null}
       rules ={[
           {
             required:true,
@@ -109,6 +112,7 @@ const UpdateParcel = (props) => {
       </Form.Item>
       <Form.Item name={['parcel', 'receiver']} 
       label="Receiver"
+      initialValue = {data ? data.receiver : null}
       rules ={[
           {
             required:true,
@@ -130,6 +134,7 @@ const UpdateParcel = (props) => {
       <Form.Item
         name={['parcel', 'details']}
         label="Details"
+        initialValue = {data ? data.tracking_details : null}
         rules={[
           {
           },
@@ -137,7 +142,13 @@ const UpdateParcel = (props) => {
       >
         <Input.TextArea/>
       </Form.Item>
-      <Form.Item name="date-picker" label="DatePicker" {...config}>
+      <Form.Item 
+      name="date-picker"
+      format={dateFormat}       
+      initialValue = {data ? moment(data.created_at, dateFormat) : null} 
+      label="DatePicker"
+      help="Format: DD-MM-YYYY" 
+      >
         <DatePicker />
       </Form.Item>
     </Form>

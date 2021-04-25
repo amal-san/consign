@@ -1,6 +1,21 @@
 import React, { useState , useEffect} from 'react';
-import { Modal, Button } from 'antd';
-import { Form, Input, InputNumber } from 'antd';
+import { Modal, Button, message } from 'antd';
+import { Form, Input, InputNumber , DatePicker } from 'antd';
+import moment from 'moment';
+import { useQuery, gql , useLazyQuery, useMutation} from '@apollo/client';
+
+
+
+const CREATE_PARCEL = gql` 
+mutation createParcel($name:String! $weight:String! $sender:String! $receiver:String!) {
+    createParcel(name:$name weight:$weight sender:$sender receiver:$receiver){
+     name
+     weight
+     sender
+     receiver
+  }
+}`
+
 
 
 const layout = {
@@ -14,21 +29,27 @@ const layout = {
 
 const validateMessages = {
     required: '${label} is required!',
-    // types: {
-    //   email: '${label} is not a valid email!',
-    //   number: '${label} is not a valid number!',
-    // },
-    // number: {
-    //   range: '${label} must be between ${min} and ${max}',
-    // },
-  };
-  /* eslint-enable no-template-curly-in-string */
+}
 
 
 const CreateParcel = () => {
 
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [ isLoading , setIsLoading ] = useState(false)
+  const [createParcel , { loading, data , error }] = useMutation(CREATE_PARCEL);
+
+
+  useEffect(() => {
+    if(data) {
+      setIsLoading(false)
+      setIsModalVisible(false)
+      message.success("Parcel created")
+    }
+    if(error){
+      message.warning("parcel creation failed")
+    }
+  },[data, error])
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -42,7 +63,15 @@ const CreateParcel = () => {
   }
 
   const onFinish = (values) => {
-    console.log(values);
+      let parcel = values.parcel
+      createParcel({ variables: { 
+        name: parcel.name,
+        weight:parcel.weight,
+        sender:parcel.sender,
+        receiver:parcel.receiver
+      } 
+    })        
+    setIsLoading(true)
     form.resetFields();
   };
 
@@ -101,9 +130,7 @@ const CreateParcel = () => {
       </Form.Item>
     </Form>
     <div className="modal-footer">
-        <p className="modal-submit" onClick={onSubmit}>
-          Submit
-        </p>
+        <Button onClick={onSubmit} loading={isLoading} className="modal-submit" type="text">Add</Button>
     </div>
       </Modal>
     </>

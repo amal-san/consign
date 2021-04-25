@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from '@apollo/client/react';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { Provider } from "react-redux"
 
 
 
@@ -12,11 +13,11 @@ const client = new ApolloClient({ uri:'http://localhost:4000/', cache: new InMem
 
 
 ReactDOM.render(
-  <React.StrictMode>
-      <ApolloProvider client={client}>
+  // <React.StrictMode>
+    <ApolloProvider client={client}>
       <App />
-    </ApolloProvider>
-  </React.StrictMode>,
+    </ApolloProvider>,
+  // </React.StrictMode>,
   document.getElementById('root') 
 );
 

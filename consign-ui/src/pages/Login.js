@@ -9,7 +9,7 @@ import 'antd/dist/antd.css'
 import { useHistory } from "react-router-dom";
 import { useQuery, gql } from '@apollo/client';
 import { useLazyQuery } from '@apollo/client';
-import { useEffect } from 'react';
+import { useEffect , useState, useRef  } from 'react';
 
 
 
@@ -35,24 +35,30 @@ const layout = {
 const LOGIN_QUERY = gql` 
 query Login($username:String! $password:String!) {
     Login(username:$username password:$password){
-    username 
+    username
+    token 
   }
 }`
 
 
 const Login = () => {
 
+    const [ isLoading, setIsLoading ] = useState(false)
 
-    useEffect(() => {
+    const [Login, { loading, data , error }] = useLazyQuery(LOGIN_QUERY);
+
+
+    useEffect((i) => {
         if(error){
+            setIsLoading(false)
+            console.log(i)
             message.warn("Incorrect username or password")
         }
         if(data){
             history.push('/admin')
         }
-    })
+    },[error, data])
 
-    const [Login, { loading, data , error }] = useLazyQuery(LOGIN_QUERY);
 
     const [form] = Form.useForm();
 
@@ -66,9 +72,8 @@ const Login = () => {
     const handleHome = () => history.push('/')
   
     const onFinish = (values) => {
-        Login({ variables: { username: values.username, password: values.password } })
-        message.info("Logging in...")
-        
+        Login({ variables: { username: values.username, password: values.password } })        
+        setIsLoading(true)
     };
    
       
@@ -106,7 +111,6 @@ const Login = () => {
                     >
                         <Input />
                     </Form.Item>
-
                     <Form.Item
                         label="Password"
                         name="password"
@@ -121,9 +125,7 @@ const Login = () => {
                     </Form.Item>
                 </Form>
                 <div className="modal-footer">
-                    <p className="modal-submit" onClick={onSubmit}>
-                    Log in
-                    </p>
+                    <Button onClick={onSubmit} loading={isLoading} className="modal-submit" type="text">Log in</Button>
                 </div>
                 </div>
             </div>
