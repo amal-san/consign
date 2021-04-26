@@ -1,30 +1,16 @@
 import '../../App.css';
 import { Container } from '../../components/layout/Container'
 import 'antd/dist/antd.css'
+import { useEffect } from 'react'
 import { useHistory } from "react-router-dom";
-import CreateParcel from '../../components/modals/CreateParcel'
+import CreateParcel from '../../components/modals/CreateParcel/CreateParcel'
 import ParcelCard from '../../components/ParcelCard'
 import ParcelCardLoader from '../../components/loader/ParcelCardLoader';
-import { useQuery, gql } from '@apollo/client';
+import { connect } from 'react-redux';
+import { getParcelsRequest } from './Admin.action'
+import { logoutRequest } from '../login/Login.action'
+import { isEmpty } from '../../utils'
 
-
-
-
-
-const PARCEL_QUERIES = gql`
-query {
-    Parcels{
-      name
-      deliver_status
-      tracking_id
-      tracking_details
-      weight
-      sender
-      receiver
-      created_at
-    }
-  }
-`;
 
 
 const EmptyParcel = () => {
@@ -37,11 +23,19 @@ const EmptyParcel = () => {
 const Admin = (props) => {
 
     const history = useHistory();
-    const { loading, error, data } = useQuery(PARCEL_QUERIES);
+
+    const { getParcelsRequest , error , loading , data } = props;
+
+    useEffect(()=> {
+        getParcelsRequest();
+    },[])
+
 
     const onLogout = () => {
+        logoutRequest();
         history.push('/')
     }
+
     return (
         <Container primary width="100%" height="100vh">
             <div className="login-nav">
@@ -61,7 +55,7 @@ const Admin = (props) => {
             </div>
             <div className="admin-box">
             {loading ? <ParcelCardLoader/>: null}
-            {data ? data.Parcels.map((parcel,i) => 
+            {isEmpty(data) ? data.Parcels.map((parcel,i) => 
                 <ParcelCard
                 key={i}
                 id={parcel._id}
@@ -75,11 +69,26 @@ const Admin = (props) => {
                 tracking_details={parcel.tracking_details}
                 />
             ): null}  
-            {error ? <EmptyParcel/>:null}
+            {isEmpty(error) ? <EmptyParcel/>:null}
             </div>
         </Container>
     )
 }
 
-export default Admin;
 
+const mapStateToProps = state => {
+    return {
+      data:state.parcels.parcelsResults,
+      error:state.parcels.parcelsError,
+      loading:state.parcels.parcelsLoading
+    }
+}
+  
+
+const mapDispatchToProps = {
+    getParcelsRequest,
+    logoutRequest
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Admin);

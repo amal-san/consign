@@ -1,22 +1,10 @@
 import React, { useState , useEffect} from 'react';
 import { Modal, Button, message } from 'antd';
-import { Form, Input, InputNumber , DatePicker } from 'antd';
-import moment from 'moment';
-import { useQuery, gql , useLazyQuery, useMutation} from '@apollo/client';
-
-
-
-const CREATE_PARCEL = gql` 
-mutation createParcel($name:String! $weight:String! $sender:String! $receiver:String!) {
-    createParcel(name:$name weight:$weight sender:$sender receiver:$receiver){
-     name
-     weight
-     sender
-     receiver
-  }
-}`
-
-
+import { Form, Input } from 'antd';
+import { connect } from 'react-redux'
+import { createParcelRequest , createParcelDefault } from './CreateParcel.action'
+import { getParcelsRequest } from '../../../pages/admin/Admin.action'
+import { isEmpty } from '../../../utils/'
 
 const layout = {
     labelCol: {
@@ -32,21 +20,23 @@ const validateMessages = {
 }
 
 
-const CreateParcel = () => {
+const CreateParcel = (props) => {
 
+  const { createParcelRequest, createParcelDefault, getParcelsRequest, error , data } = props;
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [ isLoading , setIsLoading ] = useState(false)
-  const [createParcel , { loading, data , error }] = useMutation(CREATE_PARCEL);
 
 
   useEffect(() => {
-    if(data) {
+    if(isEmpty(data)) {
       setIsLoading(false)
       setIsModalVisible(false)
+      createParcelDefault();
+      getParcelsRequest();
       message.success("Parcel created")
     }
-    if(error){
+    if(isEmpty(error)){
       message.warning("parcel creation failed")
     }
   },[data, error])
@@ -54,23 +44,20 @@ const CreateParcel = () => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
+  
   const onSubmit = (values) => {
       form.submit();
   }
 
   const onFinish = (values) => {
       let parcel = values.parcel
-      createParcel({ variables: { 
+      let body = { 
         name: parcel.name,
         weight:parcel.weight,
         sender:parcel.sender,
         receiver:parcel.receiver
       } 
-    })        
+      createParcelRequest(body)
     setIsLoading(true)
     form.resetFields();
   };
@@ -137,4 +124,20 @@ const CreateParcel = () => {
   );
 };
 
-export default CreateParcel;
+const mapStateToProps = state => {
+  return {
+    data:state.createParcel.createParcelResults,
+    error:state.createParcel.createParcelError,
+    loading:state.createParcel.createParcelLoading
+  }
+}
+
+
+const mapDispatchToProps = {
+  createParcelRequest,
+  createParcelDefault,
+  getParcelsRequest
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateParcel);

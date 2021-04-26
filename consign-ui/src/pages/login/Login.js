@@ -1,60 +1,31 @@
-import '../App.css';
-import { Container } from '../components/layout/Container'
-import TopBg from '../assets/TopBackground.png'
-import { Form, Input, Button, Checkbox ,message } from 'antd';
-import SearchPicture from '../assets/Search.png'
-import ContentWaveTop from '../assets/ContentTop.png'
-import InfiniteScroll from 'react-infinite-scroller';
+import '../../App.css';
+import { Container } from '../../components/layout/Container'
+import { Form, Input, Button, message } from 'antd';
 import 'antd/dist/antd.css'
 import { useHistory } from "react-router-dom";
-import { useQuery, gql } from '@apollo/client';
-import { useLazyQuery } from '@apollo/client';
-import { useEffect , useState, useRef  } from 'react';
+import { useEffect, useState} from 'react';
+import { loginRequest } from './Login.action'
+import { connect } from 'react-redux'
+import { isEmpty } from '../../utils/'
 
 
 
-
-
-const { Search } = Input;
-
-const layout = {
-    labelCol: {
-      span: 4,
-    },
-    wrapperCol: {
-      span: 12,
-    },
-  };
-  const tailLayout = {
-    wrapperCol: {
-      offset: 4,
-      span: 12,
-    },
-  };
   
-const LOGIN_QUERY = gql` 
-query Login($username:String! $password:String!) {
-    Login(username:$username password:$password){
-    username
-    token 
-  }
-}`
 
+const Login = (props) => {
 
-const Login = () => {
+    const { error , data , loginRequest } = props;
+    const [ isLoading , setIsLoading ] = useState(false);
 
-    const [ isLoading, setIsLoading ] = useState(false)
-
-    const [Login, { loading, data , error }] = useLazyQuery(LOGIN_QUERY);
 
 
     useEffect((i) => {
-        if(error){
+        if(isEmpty(error)){
             setIsLoading(false)
             console.log(i)
             message.warn("Incorrect username or password")
         }
-        if(data){
+        if(isEmpty(data)){
             history.push('/admin')
         }
     },[error, data])
@@ -72,7 +43,8 @@ const Login = () => {
     const handleHome = () => history.push('/')
   
     const onFinish = (values) => {
-        Login({ variables: { username: values.username, password: values.password } })        
+        const body = { username:values.username, password:values.password}
+        loginRequest(body)
         setIsLoading(true)
     };
    
@@ -133,4 +105,19 @@ const Login = () => {
     )
 }
 
-export default Login;
+
+const mapStateToProps = state => {
+    return {
+      data:state.login.loginResults,
+      error:state.login.loginError,
+      loading:state.login.loginLoading
+    }
+}
+  
+
+const mapDispatchToProps = {
+    loginRequest,
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -11,7 +11,7 @@ const ParcelCard = (props) => {
         <p>Sender: { props.sender}</p>
         <p>Reciever: {props.receiver}</p>
         <p> Details: {props.tracking_details.length > 0 ? props.tracking_details : "NIL"} </p>
-        <p>Status: {props.status == true ? "Delivered": "Not Delivered"}</p>
+        <p>Status: {props.status === true ? "Delivered": "Not Delivered"}</p>
         <p>Tracking Id: {props.tracking_id} </p>
         <p>Created at: {props.created_at}</p>
         <div className="admin-box-settings">
