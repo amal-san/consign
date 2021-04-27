@@ -1,5 +1,5 @@
-import UpdateParcel from './modals/UpdateParcel'
-import DeleteParcel from './popup/DeleteParcel';
+import UpdateParcel from './modals/UpdateParcel/UpdateParcel'
+import DeleteParcel from './popup/DeleteParcel/DeleteParcel';
 
 
 
@@ -16,7 +16,7 @@ const ParcelCard = (props) => {
         <p>Created at: {props.created_at}</p>
         <div className="admin-box-settings">
             <UpdateParcel data={props}/>
-            <DeleteParcel data={props} />
+            <DeleteParcel tracking_id={props.tracking_id} />
         </div>
     </div>
     )

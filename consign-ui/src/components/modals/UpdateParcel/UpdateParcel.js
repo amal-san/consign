@@ -2,6 +2,8 @@ import React, { useState , useEffect} from 'react';
 import { Modal, Button } from 'antd';
 import { Form, Input, DatePicker, TimePicker, Switch, InputNumber } from 'antd';
 import moment from 'moment';
+import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
+
 
 
 const layout = {
@@ -18,15 +20,7 @@ const dateFormat = 'DD-MM-YYYY'
 
 const validateMessages = {
     required: '${label} is required!',
-    // types: {
-    //   email: '${label} is not a valid email!',
-    //   number: '${label} is not a valid number!',
-    // },
-    // number: {
-    //   range: '${label} must be between ${min} and ${max}',
-    // },
   };
-  /* eslint-enable no-template-curly-in-string */
 
 
 const UpdateParcel = (props) => {
@@ -76,6 +70,12 @@ const UpdateParcel = (props) => {
         onFinish={onFinish}>
           <h2 style={{textAlign:'center'}}>Tracking ID: {data ? data.tracking_id : null}</h2>
       <Form.Item
+        name={['parcel', 'tracking_id']}
+        initialValue = { data ? data.tracking_id : null}
+      >
+        <Input hidden/>
+      </Form.Item>
+      <Form.Item
         name={['parcel', 'name']}
         label="Name"
         initialValue = {data ? data.name : null}
@@ -121,23 +121,22 @@ const UpdateParcel = (props) => {
       >
         <Input.TextArea />
       </Form.Item>
-      {/* <Form.Item
-        name={['parcel', 'status']}
-        label="Status"
-        rules={[
-          {
-          },
-        ]}
+      <Form.Item
+        name={['parcel', 'deliver_status']}
+        label="Delivered"
+        valuePropName = { data ? (data.status === null ? 'unchecked' : 'checked') : null}
       >
-        <Switch checkedChildren="Delivered" unCheckedChildren="Not Delivered" defaultChecked />
-      </Form.Item> */}
+        <Switch checkedChildren={<CheckOutlined/>} unCheckedChildren={<CloseOutlined/>} defaultChecked />
+      </Form.Item>
       <Form.Item
         name={['parcel', 'details']}
         label="Details"
         initialValue = {data ? data.tracking_details : null}
         rules={[
           {
-          },
+            required:true,
+            message:'Details is required'
+          }
         ]}
       >
         <Input.TextArea/>
@@ -147,9 +146,9 @@ const UpdateParcel = (props) => {
       format={dateFormat}       
       initialValue = {data ? moment(data.created_at, dateFormat) : null} 
       label="DatePicker"
-      help="Format: DD-MM-YYYY" 
+      extra="format: DD-MM-YYYY" 
       >
-        <DatePicker />
+        <DatePicker disabled format={'DD-MM-YYYY'} />
       </Form.Item>
     </Form>
     <div className="modal-footer">
