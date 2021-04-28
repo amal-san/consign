@@ -4,7 +4,9 @@ import { Form, Input } from 'antd';
 import { connect } from 'react-redux'
 import { createParcelRequest , createParcelDefault } from './CreateParcel.action'
 import { getParcelsRequest } from '../../../pages/admin/Admin.action'
-import { isEmpty } from '../../../utils/'
+import { isEmpty , usePrevious } from '../../../utils/'
+
+
 
 const layout = {
     labelCol: {
@@ -27,16 +29,21 @@ const CreateParcel = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [ isLoading , setIsLoading ] = useState(false)
 
+  const prevData = usePrevious(data);
+  const prevError = usePrevious(error)
+
 
   useEffect(() => {
-    if(isEmpty(data)) {
+    console.log('data ', data)
+    console.log('prevdata ', prevData)
+    if(isEmpty(data) && data !== prevData) {
       setIsLoading(false)
       setIsModalVisible(false)
       createParcelDefault();
       getParcelsRequest();
       message.success("Parcel created")
     }
-    if(isEmpty(error)){
+    if(isEmpty(error)&& error !== prevError){
       message.warning("parcel creation failed")
     }
   },[data, error])

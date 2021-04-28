@@ -9,6 +9,7 @@ import { print } from 'graphql/language/printer';
 const CREATE_PARCEL = gql` 
 mutation createParcel($name:String! $weight:String! $sender:String! $receiver:String!) {
     createParcel(name:$name weight:$weight sender:$sender receiver:$receiver){
+     tracking_id
      name
      weight
      sender

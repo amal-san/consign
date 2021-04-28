@@ -31,6 +31,7 @@ const deleteParcelApi = (parms) => {
 function* deleteParcel(body) {
   try {
     const result = yield call(deleteParcelApi,body.body);
+    if(result.data.errors) throw result.data.errors
     yield put(actions.deleteParcelSuccess(result.data.data));
   } catch (error) {
     yield put(actions.deleteParcelError(error))

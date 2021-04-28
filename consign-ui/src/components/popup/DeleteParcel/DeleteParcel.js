@@ -9,14 +9,19 @@ import { isEmpty } from '../../../utils/'
 
 
 const DeleteParcel = (props) => {
-  const { tracking_id , data , error , loading , deleteParcelRequest , getParcelsRequest } = props;
+  const { tracking_id , data , error , loading , deleteParcelRequest , deleteParcelDefault, getParcelsRequest } = props;
+  
 
-  useEffect(() => {
-    if(isEmpty(data)){
-      props.deleteParcelDefault();
-      getParcelsRequest()
+  useEffect(() => {  
+    if(isEmpty(data) && tracking_id === data.deleteParcel.tracking_id){
+      deleteParcelDefault();
+      getParcelsRequest();
+      message.success('parcel deleted')
     }
-  },[data])
+    if(isEmpty(error)){
+      message.warning('parcel not deleted')
+    }
+  },[error, data ])
 
   const confirm = () => {
     const body = { tracking_id}
@@ -33,6 +38,7 @@ const DeleteParcel = (props) => {
             onCancel={cancel}
             okText="Yes"
             cancelText="No"
+            id={tracking_id ? tracking_id : null}
         >
             <p>🗑️</p>
         </Popconfirm>

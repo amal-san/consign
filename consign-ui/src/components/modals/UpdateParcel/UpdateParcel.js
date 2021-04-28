@@ -1,8 +1,13 @@
 import React, { useState , useEffect} from 'react';
 import { Modal, Button } from 'antd';
-import { Form, Input, DatePicker, TimePicker, Switch, InputNumber } from 'antd';
+import { Form, Input, DatePicker, TimePicker, Switch, InputNumber , message } from 'antd';
+import { updateParcelDefault , updateParcelRequest} from './UpdateParcel.action'
+import { getParcelsRequest } from '../../../pages/admin/Admin.action'
 import moment from 'moment';
+import { connect } from 'react-redux'
 import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
+import { isEmpty } from '../../../utils/'
+
 
 
 
@@ -25,16 +30,32 @@ const validateMessages = {
 
 const UpdateParcel = (props) => {
   let data;
+  const [ isLoading , setIsLoading ] = useState(false)
+  const { results , error , loading , updateParcelRequest , updateParcelDefault, getParcelsRequest } = props;
+
+  if(props){
+    data = props.data;
+  }
+
+  useEffect(() => {
+    if(isEmpty(results) && data.tracking_id === results.updateParcel.tracking_id){
+      updateParcelDefault();
+      getParcelsRequest();
+      setIsLoading(false)
+      setIsModalVisible(false)
+      message.success('parcel updated')
+    }
+    if(isEmpty(error)){
+      setIsLoading(false)
+      setIsModalVisible(false)
+      message.warning('parcel not updated')
+    }
+  },[error, results ])
 
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  if(props) {
-    data = props.data
-  }
-
   const showModal = () => {
-    console.log(data)
     setIsModalVisible(true);
   };
 
@@ -48,8 +69,18 @@ const UpdateParcel = (props) => {
 
 
   const onFinish = (values) => {
-    console.log(values);
-    form.resetFields();
+    let parcel = values.parcel
+    let body = { 
+        name: parcel.name,
+        weight:parcel.weight,
+        sender:parcel.sender,
+        receiver:parcel.receiver,
+        tracking_id:parcel.tracking_id,
+        tracking_details:parcel.details
+
+    } 
+    updateParcelRequest(body)
+    setIsLoading(true);
   };
 
   const handleCancel = () => {
@@ -144,7 +175,7 @@ const UpdateParcel = (props) => {
       <Form.Item 
       name="date-picker"
       format={dateFormat}       
-      initialValue = {data ? moment(data.created_at, dateFormat) : null} 
+      initialValue = {data ? moment(data.updated_at, dateFormat) : null} 
       label="DatePicker"
       extra="format: DD-MM-YYYY" 
       >
@@ -152,13 +183,30 @@ const UpdateParcel = (props) => {
       </Form.Item>
     </Form>
     <div className="modal-footer">
-        <p className="modal-submit" onClick={onSubmit}>
-          Submit
-        </p>
+        <Button onClick={onSubmit} loading={isLoading} className="modal-submit" type="text">Update</Button>
     </div>
       </Modal>
     </>
   );
 };
 
-export default UpdateParcel;
+
+const mapStateToProps = state => {
+  return {
+    results:state.updateParcel.updateParcelResults,
+    error:state.updateParcel.updateParcelError,
+    loading:state.updateParcel.updateParcelLoading
+  }
+}
+
+
+const mapDispatchToProps = {
+  updateParcelRequest,
+  updateParcelDefault,
+  getParcelsRequest
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateParcel);
+
+

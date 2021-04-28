@@ -7,9 +7,9 @@ import { print } from 'graphql/language/printer';
 
   
 const UPDATE_PARCEL = gql` 
-mutation updateParcel($tracking_id:String! $name:String! $weight:String! $sender:String! $receiver:String!) {
-    updateParcel(tracking_id:$tracking_id name:$name weight:$weight sender:$sender receiver:$receiver ){
-     name
+mutation updateParcel($tracking_id:String! $name:String! $weight:String! $sender:String! $receiver:String! $status:Boolean $tracking_details:String) {
+    updateParcel(tracking_id:$tracking_id name:$name weight:$weight sender:$sender receiver:$receiver status:$status tracking_details:$tracking_details ){
+     tracking_id
     }
 }`
 
@@ -20,10 +20,13 @@ const updateParcelApi = (parms) => {
         query:print(UPDATE_PARCEL),
         variables: {
             tracking_id:parms.tracking_id,
+            tracking_details:parms.tracking_details,
             name:parms.name,
             weight:parms.weight,
             sender:parms.sender,
-            receiver:parms.receiver
+            receiver:parms.receiver,
+            status:parms.status ? parms.status: false
+
         },
         headers:{
             'Content-Type': 'application/json'
@@ -34,6 +37,7 @@ const updateParcelApi = (parms) => {
 function* updateParcel(body) {
   try {
     const result = yield call(updateParcelApi,body.body);
+    if(result.data.errors) throw result.data.errors
     yield put(actions.updateParcelSuccess(result.data.data));
   } catch (error) {
     yield put(actions.updateParcelError(error))
