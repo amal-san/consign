@@ -19,7 +19,8 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "14.x"
+    "node": "14.x",
+    "npm" : "7.9.0"
   },
   "resolutions": {
     "graphql": "^15.5.0"
