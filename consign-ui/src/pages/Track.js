@@ -1,6 +1,7 @@
 import '../App.css';
 import { Container } from '../components/layout/Container'
-import { Input } from 'antd';
+import { Input, Button } from 'antd';
+import { useEffect , useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import SearchPicture from '../assets/Search.png'
 import 'antd/dist/antd.css'
@@ -11,11 +12,19 @@ const { Search } = Input;
 
 const Track = () => {
 
+    const [ isLoading , setIsLoading ] = useState(false)
+
+    const [ params , setParams ] = useState(' ');
+
     const history = useHistory();
 
     const handleHome = () => history.push('/')
   
     const onSearch = value => console.log(value);
+
+    const handleChange =  e => {
+        setParams(e.target.value)
+    }
 
     return (
         <Container primary width="100%" height="100vh">
@@ -25,14 +34,10 @@ const Track = () => {
                 <h1>  </h1>
             </div>
             <div className="tracking-div">
-                <Search
-                style={{width:'50%'}}
-                placeholder="enter tracking code here "
-                allowClear
-                enterButton="Search"
-                size="large"
-                onSearch={onSearch}
-                />
+                <div style={{display:'flex',flexDirection:'row', width:'60%'}}>
+                    <Input size="large" value={params} onChange={handleChange} placeholder="Basic usage" />
+                    <Button onClick={onSearch} className="modal-submit search-btn" type="text">Search</Button>
+                </div>
                 <img src={SearchPicture} width="50%"></img>
             </div>
         </Container>

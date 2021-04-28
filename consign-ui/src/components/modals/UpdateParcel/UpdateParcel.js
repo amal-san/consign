@@ -32,6 +32,7 @@ const UpdateParcel = (props) => {
   let data;
   const [ isLoading , setIsLoading ] = useState(false)
   const { results , error , loading , updateParcelRequest , updateParcelDefault, getParcelsRequest } = props;
+  const [ status , setStatus ] = useState(data ? data.status : false)
 
   if(props){
     data = props.data;
@@ -68,20 +69,28 @@ const UpdateParcel = (props) => {
   }
 
 
+
+
   const onFinish = (values) => {
+    console.log(values)
     let parcel = values.parcel
     let body = { 
         name: parcel.name,
         weight:parcel.weight,
         sender:parcel.sender,
         receiver:parcel.receiver,
-        tracking_id:parcel.tracking_id,
-        tracking_details:parcel.details
+        tracking_id:data.tracking_id,
+        tracking_details:parcel.details,
+        status:status
 
     } 
     updateParcelRequest(body)
     setIsLoading(true);
   };
+
+  const statusChange = () => {
+    setStatus(!data.status)
+  }
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -100,12 +109,6 @@ const UpdateParcel = (props) => {
         validateMessages={validateMessages} 
         onFinish={onFinish}>
           <h2 style={{textAlign:'center'}}>Tracking ID: {data ? data.tracking_id : null}</h2>
-      <Form.Item
-        name={['parcel', 'tracking_id']}
-        initialValue = { data ? data.tracking_id : null}
-      >
-        <Input hidden/>
-      </Form.Item>
       <Form.Item
         name={['parcel', 'name']}
         label="Name"
@@ -153,11 +156,10 @@ const UpdateParcel = (props) => {
         <Input.TextArea />
       </Form.Item>
       <Form.Item
-        name={['parcel', 'deliver_status']}
+        name={['parcel', 'status']}
         label="Delivered"
-        valuePropName = { data ? (data.status === null ? 'unchecked' : 'checked') : null}
       >
-        <Switch checkedChildren={<CheckOutlined/>} unCheckedChildren={<CloseOutlined/>} defaultChecked />
+        <Switch defaultChecked={data ? data.status : false}  onChange={statusChange}checkedChildren={<CheckOutlined/>} unCheckedChildren={<CloseOutlined/>} />
       </Form.Item>
       <Form.Item
         name={['parcel', 'details']}
@@ -175,7 +177,7 @@ const UpdateParcel = (props) => {
       <Form.Item 
       name="date-picker"
       format={dateFormat}       
-      initialValue = {data ? moment(data.updated_at, dateFormat) : null} 
+      initialValue = {data ? moment(data.created_at, dateFormat) : null} 
       label="DatePicker"
       extra="format: DD-MM-YYYY" 
       >

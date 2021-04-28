@@ -36,6 +36,7 @@ const createParcelApi = (parms) => {
 function* createParcel(body) {
   try {
     const result = yield call(createParcelApi,body.body);
+    if(result.data.errors) throw result.data.errors
     yield put(actions.createParcelSuccess(result.data.data));
   } catch (error) {
     yield put(actions.createParcelError(error))

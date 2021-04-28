@@ -29,7 +29,7 @@ type ParcelType {
     receiver:String!
     sender:String!
     created_at:String
-    deliver_status:Boolean
+    status:Boolean
     tracking_id:String
     tracking_details:[String]
 }

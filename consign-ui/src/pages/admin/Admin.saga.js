@@ -8,7 +8,7 @@ const getParcelApi = () => {
         {
             Parcels{
                 name
-                deliver_status
+                status
                 tracking_id
                 tracking_details
                 weight
@@ -26,6 +26,7 @@ const getParcelApi = () => {
 function* getParcels() {
   try {
     const result = yield call(getParcelApi);
+    if(result.data.errors) throw result.data.errors
     yield put(actions.getParcelsSuccess(result.data.data));
   } catch (error) {
     yield put(actions.getParcelsError(error))

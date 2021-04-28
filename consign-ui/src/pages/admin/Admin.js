@@ -3,6 +3,7 @@ import { Container } from '../../components/layout/Container'
 import 'antd/dist/antd.css'
 import { useEffect } from 'react'
 import { useHistory } from "react-router-dom";
+import EmptyGif from '../../assets/empty.gif'
 import CreateParcel from '../../components/modals/CreateParcel/CreateParcel'
 import ParcelCard from '../../components/ParcelCard'
 import ParcelCardLoader from '../../components/loader/ParcelCardLoader';
@@ -10,12 +11,19 @@ import { connect } from 'react-redux';
 import { getParcelsRequest } from './Admin.action'
 import { logoutRequest } from '../login/Login.action'
 import { isEmpty } from '../../utils'
+import GifLoader from 'react-gif-loader';
+
 
 
 
 const EmptyParcel = () => {
     return (
-        <h1 style={{textAlign:'center',flex:1, fontSize:'xxx-large', margin:'10%'}}>Empty....</h1>
+        <img
+            width='20%'
+            height='20%'
+            src={EmptyGif}
+            style={{textAlign:'center', margin:'0 auto'}}
+        />
     )
 }
 
@@ -30,6 +38,7 @@ const Admin = (props) => {
         getParcelsRequest();
     },[])
 
+    
 
     const onLogout = () => {
         logoutRequest();
@@ -62,7 +71,7 @@ const Admin = (props) => {
                 name={parcel.name}
                 sender={parcel.sender}
                 weight={parcel.weight}
-                status={parcel.deliver_statu}
+                status={parcel.status}
                 receiver={parcel.receiver}
                 created_at={parcel.created_at}
                 tracking_id={parcel.tracking_id}

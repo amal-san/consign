@@ -44,7 +44,9 @@ const CreateParcel = (props) => {
       message.success("Parcel created")
     }
     if(isEmpty(error)&& error !== prevError){
-      message.warning("parcel creation failed")
+      message.warning(error[0].message)
+      setIsLoading(false)
+      setIsModalVisible(false)
     }
   },[data, error])
 
