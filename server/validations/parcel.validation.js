@@ -10,7 +10,7 @@ const validateParcelCreate = (parcel) => {
         created_at:Joi.string().min(8).max(40).optional(),
         status:Joi.boolean().optional(),
         tracking_id:Joi.string().optional(),
-        tracking_details:Joi.array().optional(),
+        tracking_details:Joi.string().optional(),
     }).options({abortEarly:false})
     return ParcelSchema.validate(parcel)
 }
@@ -25,7 +25,7 @@ const validateParcelOnId = (parcel) => {
         created_at:Joi.string().min(8).max(40).optional(),
         status:Joi.boolean().optional(),
         tracking_id:Joi.string().required(),
-        tracking_details:Joi.array().optional(),
+        tracking_details:Joi.string().optional(),
     }).options({abortEarly:false})
     return ParcelSchema.validate(parcel)
 }

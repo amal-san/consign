@@ -6,13 +6,14 @@ var crypto = require('crypto')
 
 const createParcel = async ( body ) => {
     const parcel = new Parcel(body)
-    parcel.tracking_id = crypto.randomBytes(12).toString('hex');
+    parcel.tracking_id = crypto.randomBytes(10).toString('hex');
     let ts = Date.now();
     let date_ob = new Date(ts);
     let date = date_ob.getDate();
     let month = date_ob.getMonth() + 1;
     let year = date_ob.getFullYear();
     parcel.created_at = date + '-' + month +'-' + year
+    parcel.status = false;
     parcel.save((err) => {
         if (err){
             console.log(err)
