@@ -5,6 +5,9 @@
   "author": "amalsan",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "dotenv": "^8.2.0",
     "graphql": "15.5.0",
@@ -14,11 +17,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.3"
   },
-  "scripts": {
-    "start": "node index.js"
-  },
   "engines": {
-    "node": "14.0.0",
+    "node": "14.x",
     "npm" : "7.9.0"
   },
   "resolutions": {
