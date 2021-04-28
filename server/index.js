@@ -3,7 +3,6 @@ const app = require('./app')
 const config = require('./config/')
 
 
-const port = process.env.PORT;
 
 
 mongoConn.on('error', function() {
@@ -11,5 +10,6 @@ mongoConn.on('error', function() {
 });
 mongoConn.once('open',function() {
     console.log('Database connected 👍')
-    app.start(() => console.log(`Server is running on http://localhost:4000`))
+
+    app.start(() => console.log(`Server is running on http://localhost:8080`))
 })
