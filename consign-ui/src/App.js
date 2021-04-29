@@ -8,24 +8,24 @@ import { Provider } from 'react-redux';
 import store from './saga/createStore'
 import axios from 'axios'
 import {
-  BrowserRouter, Switch, Route
+  HashRouter, Switch, Route
 } from 'react-router-dom'
 
 
-axios.defaults.baseURL = 'http://localhost:4000/'
+axios.defaults.baseURL = 'https://consign-server.herokuapp.com/'
 
 
 function App() {
   return (
     <Provider store={store}>
-        <BrowserRouter>
+        <HashRouter>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/track" component={Track}/>
             <Route path="/login" component={Login}/>
             <Route path="/admin" component={Admin}/>
           </Switch>
-    </BrowserRouter>
+    </HashRouter>
   </Provider>
   )
 }
