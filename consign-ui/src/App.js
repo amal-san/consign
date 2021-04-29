@@ -1,6 +1,6 @@
 import './App.css';
 import Home from './pages/Home'
-import Track from './pages/Track'
+import Track from './pages/track/Track'
 import Login from './pages/login/Login'
 import Admin from './pages/admin/Admin'
 import React from 'react';

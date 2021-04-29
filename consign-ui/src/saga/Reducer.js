@@ -4,6 +4,7 @@ import { loginReducer } from '../pages/login/Login.reducer';
 import { createParcelReducer } from '../components/modals/CreateParcel/CreateParcel.reducer'
 import { updateParcelReducer } from '../components/modals/UpdateParcel/UpdateParcel.reducer'
 import { deleteParcelReducer } from '../components/popup/DeleteParcel/DeleteParcel.reducer'
+import { trackParcelReducer } from '../pages/track/Track.reducer'
 
 
 
@@ -13,4 +14,5 @@ export default combineReducers({
   createParcel: createParcelReducer,
   updateParcel: updateParcelReducer,
   deleteParcel: deleteParcelReducer,
+  trackParcel: trackParcelReducer
 });

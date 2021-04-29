@@ -1,8 +1,9 @@
 import '../App.css';
-import { Container } from '../components/layout/Container'
+import { Container } from '../../components/layout/Container'
 import { Input, Button } from 'antd';
 import { useEffect , useState } from 'react';
 import { useHistory } from 'react-router-dom'
+import { trackParcelRequest, trackParcelDefault } from './Track.action'
 import SearchPicture from '../assets/Search.png'
 import 'antd/dist/antd.css'
 
@@ -44,4 +45,21 @@ const Track = () => {
     );
 }
 
-export default Track;
+const mapStateToProps = state => {
+    return {
+      data:state.trackParcel.trackParcelResults,
+      error:state.trackParcel.trackParcelError,
+      loading:state.trackParcel.trackParcelLoading
+    }
+  }
+  
+  
+const mapDispatchToProps = {
+    trackParcelRequest,
+    trackParcelDefault,
+  }
+  
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Track);
+  
+
