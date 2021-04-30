@@ -2,21 +2,16 @@ const httpStatus = require('http-status')
 const Parcel = require('../models/parcel.model')
 const ApiError = require('../utils/ApiError')
 var crypto = require('crypto')
+const config = require('../config/index')
 
 
 const createParcel = async ( body ) => {
     const parcel = new Parcel(body)
     parcel.tracking_id = crypto.randomBytes(10).toString('hex');
-    let ts = Date.now();
-    let date_ob = new Date(ts);
-    let date = date_ob.getDate();
-    let month = date_ob.getMonth() + 1;
-    let year = date_ob.getFullYear();
-    parcel.created_at = date + '-' + month +'-' + year
+    parcel.created_at = config.dateNow();
     parcel.status = false;
     parcel.save((err) => {
         if (err){
-            console.log(err)
             throw new ApiError(httpStatus.NOT_IMPLEMENTED, "parcel creation failed")
         } 
     })
@@ -28,7 +23,12 @@ const updateParcelByTrackingId = async (updateBody) => {
     if (!parcel) {
       throw new ApiError(httpStatus.NOT_FOUND, 'parcel not found');
     }
+    let details = updateBody.tracking_details
+    console.log('ahi')
+    details ? delete updateBody.tracking_details : null;
     Object.assign(parcel, updateBody);
+    console.log(details, config.dateNow)
+    details !== 'none' ? parcel.tracking_details.push({date:config.dateNow() ,details:details}): null;
     parcel.save((err) => {
         if (err) throw new ApiError(httpStatus.NOT_IMPLEMENTED, "parcel updatation failed")
     })

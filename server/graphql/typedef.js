@@ -22,6 +22,13 @@ type UserType {
 	password:String!
     details:String
 }
+
+type TrackingDetailsType {
+    _id:String!
+    date:String!
+    details:String!
+}
+
 type ParcelType {
 	_id:String!
 	name:String!
@@ -31,7 +38,7 @@ type ParcelType {
     created_at:String
     status:Boolean
     tracking_id:String
-    tracking_details:[String]
+    tracking_details:[TrackingDetailsType!]
 }
 
 

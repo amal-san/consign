@@ -39,8 +39,7 @@ const parcelSchema = new Schema({
     trim:true
   },
   tracking_details: {
-    type:[String],
-    default:[],
+    type:[{date:String, details:String}],
   }
 });
 
