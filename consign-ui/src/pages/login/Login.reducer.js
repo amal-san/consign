@@ -20,7 +20,11 @@ export const loginReducer = (state = initialState, action) => {
         loginLoading:false
     };
     case Types.LOGOUT_REQUEST:
-      return state
+      return {
+        loginError:[],
+        loginResults:[],
+        loginLoading:true
+      }
       
     default:
       return state;

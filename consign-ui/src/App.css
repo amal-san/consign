@@ -54,7 +54,7 @@ body {
 
 } */
 .tracking-div {
-  width: 70%;
+  width:80%;
   margin: 0 auto;
   padding: 2rem;
   border-radius: 4px;
@@ -64,7 +64,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 90%;
 }
 
 .login-div {
@@ -290,9 +289,21 @@ body {
 }
 
 .ant-timeline-item {
-  padding-bottom:25px;
+  padding-bottom:35px!important;
 }
 
 .ant-timeline-item-content {
   width:auto;
+}
+
+.tracking-content {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    align-items: baseline;
+    margin: 0 auto;
+}
+
+.ant-timeline.ant-timeline-alternate .ant-timeline-item-left .ant-timeline-item-content, .ant-timeline.ant-timeline-right .ant-timeline-item-left .ant-timeline-item-content, .ant-timeline.ant-timeline-label .ant-timeline-item-left .ant-timeline-item-content {
+  width: auto!important;
 }

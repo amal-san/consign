@@ -20,7 +20,11 @@ export const trackParcelReducer = (state = initialState, action) => {
         trackParcelLoading:false
     };
     case Types.TRACK_PARCEL_DEFAULT:
-      return state
+      return {
+        trackParcelError:[],
+        trackParcelResults:[],
+        trackParcelLoading:true
+      }
       
     default:
       return state;

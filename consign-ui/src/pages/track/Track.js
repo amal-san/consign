@@ -23,7 +23,6 @@ const Track = (props) => {
         if(isEmpty(data)){
             setImageShow(false)
             setIsLoading(false)
-            trackParcelDefault();
         }
     },[data ,error])
 
@@ -34,7 +33,10 @@ const Track = (props) => {
 
     const history = useHistory();
 
-    const handleHome = () => history.push('/')
+    const handleHome = () => {
+        history.push('/')
+        props.trackParcelDefault();
+    }
   
     const onSearch = () => {
        setIsLoading(true)
@@ -73,23 +75,25 @@ const Track = (props) => {
                     />
                     <Button onClick={onSearch} loading={isLoading} className="modal-submit search-btn" type="text">Search</Button>
                 </div>
-                    {imageShow ? <img style={{}} src={SearchPicture} width="50%"></img> : null}
-                    {!imageShow ? 
-                    <div style={{ display:'flex', justifyContent:'space-around', width:'100%', alignItems:'center'}}>
+                    {imageShow ? <img style={{marginTop:'5%'}} src={SearchPicture} width="50%"></img> : null}
+            </div>
+            {!imageShow && isEmpty(data) ? 
+                    <div className="tracking-content">
                         <div>
-                            <h1>Name: {data.ParcelInfo.name}</h1>
-                            <h1>Weight: {data.ParcelInfo.weight}</h1>  
-                            <h1>Sender: {data.ParcelInfo.sender}</h1>
+                            <h2 style={{fontWeight:'bold'}}>Tracking Details</h2>
+                            <h3>Name: <span>{data.ParcelInfo.name}</span></h3>
+                            <h3>Weight: {data.ParcelInfo.weight}</h3>  
+                            <h3>Sender: {data.ParcelInfo.sender}</h3>
                         </div>
                         <div className="timeline">
                             <Timeline mode='left'>
+                                <h2 style={{textAlign:'center',marginBottom:'10%', fontWeight:'bold'}}>Timeline</h2>
                                 {data.ParcelInfo.tracking_details.map((detail, i , array) =>
                                 <Timeline.Item label={detail.date}  color={(i == 0 || i === array.length - 1) ? 'green' : 'blue'} key={`timeline-${i}`}>{detail.details}</Timeline.Item> 
                                 )}
                             </Timeline>
                         </div>      
                     </div> : null}
-            </div>
             
         </Container>
     );

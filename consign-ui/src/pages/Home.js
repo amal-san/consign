@@ -14,9 +14,12 @@ import { useHistory } from "react-router-dom";
 
 
 
-function Home() {
+
+
+function Home(props) {
 
   const history = useHistory();
+
 
   const onTrack = () =>  history.push('/track')
 
@@ -32,11 +35,11 @@ function Home() {
         {/* <img src={TopBg} width="100%" height="20%"/> */}
         <Container className="home-page" primary width="100%" height="100%" bg="white" display="flex" justify="space-around" align="center" style={{paddingTop:'10%'}}>
           <Container >
-            <h1 style={{ fontSize: 'x-large' }}>smart way of sending parcels <br></br><span style={{ fontSize: 'xxx-large', color: '#28ca3d' }}>Consign </span></h1>
+            <h1 style={{ fontSize: 'x-large' }}>Smart way of sending parcels <br></br><span style={{ fontSize: 'xxx-large', color: '#28ca3d' }}>Consign </span></h1>
             <p>the fastest parceling system around the globe</p>
             <Container>
-              <Button bg="#5effb2" color="black" className="home-btn" onClick={onLogin} > login </Button>
-              <Button bg="#5effb2" color="black" className="home-btn" onClick={onTrack}> track </Button>
+              <Button bg="#5effb2" color="black" padding="5px 15px" className="home-btn" onClick={onLogin} > login </Button>
+              <Button bg="#5effb2" color="black" padding="5px 15px" className="home-btn" onClick={onTrack}> track </Button>
             </Container>
           </Container>
           <img src={World} width="50%" />
@@ -60,5 +63,6 @@ function Home() {
     </Container>
   );
 }
+
 
 export default Home;

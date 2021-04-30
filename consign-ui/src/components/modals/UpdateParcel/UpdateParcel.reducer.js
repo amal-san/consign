@@ -20,7 +20,11 @@ export const updateParcelReducer = (state = initialState, action) => {
         updateParcelLoading:false
     };
     case Types.UPDATE_PARCEL_DEFAULT:
-      return state
+      return {
+        updateParcelError:[],
+        updateParcelLoading:true,
+        updateParcelResults:[]
+    };
       
     default:
       return state;

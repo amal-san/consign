@@ -41,7 +41,7 @@ const Admin = (props) => {
     
 
     const onLogout = () => {
-        logoutRequest();
+        props.logoutRequest();
         history.push('/')
     }
 
