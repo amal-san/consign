@@ -7,7 +7,8 @@ const ParcelCard = (props) => {
 
     const textify = ( value ) => {
         if (typeof(value)) return value[0].length > 20 ? `${value[0].slice(0,15)}...` : value
-        else return value.length > 20 ? `${value.slice(0,15)}...` : value
+        else if(value) return value.length > 20 ? `${value.slice(0,15)}...` : value
+        else return value
     }
     console.log(props)
 
