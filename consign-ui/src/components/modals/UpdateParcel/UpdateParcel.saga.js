@@ -20,7 +20,7 @@ const updateParcelApi = (parms) => {
         query:print(UPDATE_PARCEL),
         variables: {
             tracking_id:parms.tracking_id,
-            tracking_details:parms.tracking_details,
+            tracking_details:parms.tracking_details ? parms.tracking_details : 'none',
             name:parms.name,
             weight:parms.weight,
             sender:parms.sender,

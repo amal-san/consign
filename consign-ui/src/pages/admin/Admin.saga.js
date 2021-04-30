@@ -10,7 +10,10 @@ const getParcelApi = () => {
                 name
                 status
                 tracking_id
-                tracking_details
+                tracking_details {
+                  date
+                  details
+                }
                 weight
                 sender
                 receiver

@@ -1,4 +1,4 @@
-import { Types } from './TrackParcel.action';
+import { Types } from './Track.action';
 
 const initialState = {
   trackParcelResults:[],

@@ -13,6 +13,7 @@ import {
 
 
 axios.defaults.baseURL = 'https://consign-server.herokuapp.com/'
+// axios.defaults.baseURL = 'http://localhost:8080/'
 
 
 function App() {

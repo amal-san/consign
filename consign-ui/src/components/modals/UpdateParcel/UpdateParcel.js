@@ -1,6 +1,6 @@
 import React, { useState , useEffect} from 'react';
 import { Modal, Button } from 'antd';
-import { Form, Input, DatePicker, TimePicker, Switch, InputNumber , message } from 'antd';
+import { Form, Input, DatePicker, Timeline, Switch, message } from 'antd';
 import { updateParcelDefault , updateParcelRequest} from './UpdateParcel.action'
 import { getParcelsRequest } from '../../../pages/admin/Admin.action'
 import moment from 'moment';
@@ -44,6 +44,7 @@ const UpdateParcel = (props) => {
       getParcelsRequest();
       setIsLoading(false)
       setIsModalVisible(false)
+      form.resetFields();
       message.success('parcel updated')
     }
     if(isEmpty(error)){
@@ -72,7 +73,6 @@ const UpdateParcel = (props) => {
 
 
   const onFinish = (values) => {
-    console.log(values)
     let parcel = values.parcel
     let body = { 
         name: parcel.name,
@@ -80,10 +80,10 @@ const UpdateParcel = (props) => {
         sender:parcel.sender,
         receiver:parcel.receiver,
         tracking_id:data.tracking_id,
-        tracking_details:parcel.details,
         status:status
 
-    } 
+    }
+    if(parcel.details) body.tracking_details = parcel.details
     updateParcelRequest(body)
     setIsLoading(true);
   };
@@ -95,6 +95,10 @@ const UpdateParcel = (props) => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+  console.log(data.tracking_details)
+  
+  let timelinesteps = data ? (isEmpty(data.tracking_details) ? data.tracking_details.map((detail, i , array) => <Timeline.Item label={detail.date}  color={(i == 0 || i === array.length - 1) ? 'green' : 'blue'} key={`timeline-${i}`}>{detail.details}</Timeline.Item>): null):null;
 
   return (
     <>
@@ -161,16 +165,18 @@ const UpdateParcel = (props) => {
       >
         <Switch defaultChecked={data ? data.status : false}  onChange={statusChange}checkedChildren={<CheckOutlined/>} unCheckedChildren={<CloseOutlined/>} />
       </Form.Item>
+      <div className="timeline">
+        <Timeline mode='left'>
+          <h2 style={{fontWeight:'600', textAlign:'center',marginBottom:'20px'}}>Timeline</h2>
+          {!timelinesteps ? 
+          <p style={{textAlign:'center'}}>
+            Empty 🗋
+          </p> : timelinesteps}
+        </Timeline>
+      </div>
       <Form.Item
         name={['parcel', 'details']}
-        label="Details"
-        initialValue = {data ? data.tracking_details : null}
-        rules={[
-          {
-            required:true,
-            message:'Details is required'
-          }
-        ]}
+        label="Add Timeline"
       >
         <Input.TextArea/>
       </Form.Item>
