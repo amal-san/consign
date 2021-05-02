@@ -75,7 +75,7 @@ const Track = (props) => {
                     />
                     <Button onClick={onSearch} loading={isLoading} className="modal-submit search-btn" type="text">Search</Button>
                 </div>
-                    {imageShow ? <img style={{marginTop:'5%'}} src={SearchPicture} width="50%"></img> : null}
+                    {imageShow ? <img style={{marginTop:'5%'}} className="tracking-img" src={SearchPicture} width="50%"></img> : null}
             </div>
             {!imageShow && isEmpty(data) ? 
                     <div className="tracking-content">

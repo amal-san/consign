@@ -307,3 +307,43 @@ body {
 .ant-timeline.ant-timeline-alternate .ant-timeline-item-left .ant-timeline-item-content, .ant-timeline.ant-timeline-right .ant-timeline-item-left .ant-timeline-item-content, .ant-timeline.ant-timeline-label .ant-timeline-item-left .ant-timeline-item-content {
   width: auto!important;
 }
+
+
+@media (min-width: 300px) and (max-width:700px) {
+  .home-page {
+    margin: 2%;
+    flex-direction: column-reverse;
+  }
+  .flow-chart {
+    display: none;
+  }
+  .world-img {
+    width:100%
+  }
+  .infinite-scroll {
+    height: auto!important;
+  }
+  .side-img {
+    width:90%;
+    margin:.5rem!important;
+  }
+  .bottom-ctn {
+    margin-bottom: 10px!important;
+  }
+  .admin-menu {
+    flex-direction: column;
+  }
+  .tracking-div > div {
+    width:100%!important;
+  }
+  .tracking-div {
+    width:auto;
+    height:50%;
+  }
+  .tracking-img {
+    width:100%
+  }
+  .admin-ctn {
+    height:auto!important;
+  }
+}

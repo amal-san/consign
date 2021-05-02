@@ -27,7 +27,7 @@ function Home(props) {
 
   return (
     <Container primary width="100%" height="100vh">
-      <InfiniteScroll hasMore={false} style={{ height: '100vh' }}>
+      <InfiniteScroll hasMore={false} className="infinite-scroll" style={{ height: '100vh' }}>
         {/* <img src={WaveBottom} width="100%" height="20%" /> */}
         <div className="home-nav">
           <h1> send your parcels around the globe</h1>
@@ -42,19 +42,19 @@ function Home(props) {
               <Button bg="#5effb2" color="black" padding="5px 15px" className="home-btn" onClick={onTrack}> track </Button>
             </Container>
           </Container>
-          <img src={World} width="50%" />
+          <img className="world-img" src={World} width="50%" />
         </Container>
         <div className="timeline" style={{textAlign:'center'}}>
-          <h1><span>📦</span> ------------------- <span>🛫</span> -------------------  <span>✔️</span> </h1>
+          <h1 className="flow-chart"><span>📦</span> ------------------- <span>🛫</span> -------------------  <span>✔️</span> </h1>
           {/* <img style={{marginTop:'-30%'}} src={Plane} width="50%" height="20%" /> */}
         </div>  
-        <Container primary width="100%" height="50%" bg="white" display="flex" justify="space-evenly" align="center" style={{ flexDirection: 'column', marginBottom: '8rem' }} >
+        <Container primary width="100%" height="50%" bg="white" display="flex" justify="space-evenly" align="center" style={{ flexDirection: 'column', marginBottom: '8rem' }} className="bottom-ctn" >
           <h2 style={{color:'#28ca3d'}}>why consign ? </h2>
-          <img src={ContentWaveTop} height="20%" style={{ alignSelf: 'flex-end', marginRight: '2rem', marginTop: '10px' }}></img>
+          <img className="side-img" src={ContentWaveTop} height="20%" style={{ alignSelf: 'flex-end', marginRight: '2rem', marginTop: '10px' }}></img>
           <p style={{ margin: '2rem' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel velit tempor, egestas mauris at, lacinia nunc. Fusce elementum diam sit amet ultrices dapibus. Cras at dapibus purus. Sed ac maximus arcu, quis maximus diam. In ultricies lacus eget tortor ultricies, vitae rutrum turpis luctus. Nulla at ante vitae eros hendrerit mattis sit amet ut est. Proin eu urna ex. Mauris auctor, augue a convallis suscipit, sem sapien luctus magna, eget varius velit augue ut orci. Maecenas libero felis, vestibulum ut aliquam a, egestas non tortor.
           Aenean placerat tincidunt consequat. Vivamus vestibulum laoreet urna, et tempus eros volutpat vel. Pellentesque et neque egestas, finibus velit ut, facilisis nibh. Sed magna risus, porta sit amet tempus in, ullamcorper vel erat. Sed laoreet risus ut posuere mollis. Cras et sapien justo. Donec molestie ipsum sed arcu convallis egestas. Proin convallis ullamcorper porta. Nulla quis porttitor arcu. Curabitur dignissim in augue vel pharetra.
       </p>
-          <img src={ContentWaveBottom} height="20%" style={{ alignSelf: 'baseline', marginLeft: '2rem', marginTop: '0px' }}></img>
+          <img className="side-img" src={ContentWaveBottom} height="20%" style={{ alignSelf: 'baseline', marginLeft: '2rem', marginTop: '0px' }}></img>
         </Container>
         <Container style={{ marginTop: '3rem' }} primary height="5%" bg="black" display="flex" justify="space-evenly" align="flex-start" style={{ flexDirection: 'column', borderTop: "5px solid #ECFF19", paddingLeft: '2rem' }}>
           <p style={{ color: 'white', fontSize: 'small',margin:'0' }}>Copyrights Reserved @2021 </p>

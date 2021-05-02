@@ -46,7 +46,7 @@ const Admin = (props) => {
     }
 
     return (
-        <Container primary width="100%" height="100vh">
+        <Container primary width="100%" className="admin-ctn" height="100vh">
             <div className="login-nav">
                 <h1 >  </h1>
                 <h1> 🛠️ admin</h1>
