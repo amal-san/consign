@@ -4,6 +4,10 @@ const Auth  = require('../utils/Auth');
 const ApiError = require('../utils/ApiError');
 const httpStatus = require('http-status');
 
+const GraphQlError = () => new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate");
+
+
+
 const resolvers = {
     Query: {
         Info: () => `Checking the server is working`,
@@ -12,25 +16,26 @@ const resolvers = {
 
         Login: async (parent, args) => UserController.userLogin(args),
 
-        Parcels: async () => ParcelController.Parcels(),
+        Parcels: async (parent, args, context) => 
+            Auth.validateToken(context) ? ParcelController.Parcels() : GraphQlError(),
 
         ParcelInfo: async (parent, args ) => ParcelController.findParcelByTrackingId(args),
 
-
-        DeliveredParcels: async ( parent, args ,context) => 
-        // Auth.validateToken(context) ? 
-        ParcelController.findParcelDeliveries() 
-        // : new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
+        DeliveredParcels: async ( parent, args ,context) => ParcelController.findParcelDeliveries(args),
+            // Auth.validateToken(context) ? ParcelController.findParcelDeliveries() : GraphQlError(),
 
     },
     Mutation: {
         createUser : async (parent, args) => UserController.createUser(args),
-        createParcel : async (parent, args, context) => ParcelController.createParcel(args),
-            // Auth.validateToken(context) === true ? ParcelController.createParcel(args) : null,
+
+        createParcel : async (parent, args, context) => 
+            Auth.validateToken(context) ? ParcelController.createParcel(args) : GraphQlError(),
+
         updateParcel: async ( parent, args, context) => 
-            ParcelController.updateParcel(args),
+            Auth.validateToken(context) ? ParcelController.updateParcel(args): GraphQlError(),
+
         deleteParcel: async ( parent , args, context ) => 
-            ParcelController.deleteParcel(args),
+            Auth.validateToken(context) ? ParcelController.deleteParcel(args): GraphQlError(),
 
         
 

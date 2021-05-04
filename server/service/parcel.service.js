@@ -24,10 +24,8 @@ const updateParcelByTrackingId = async (updateBody) => {
       throw new ApiError(httpStatus.NOT_FOUND, 'parcel not found');
     }
     let details = updateBody.tracking_details
-    console.log('ahi')
     details ? delete updateBody.tracking_details : null;
     Object.assign(parcel, updateBody);
-    console.log(details, config.dateNow)
     details !== 'none' ? parcel.tracking_details.push({date:config.dateNow() ,details:details}): null;
     parcel.save((err) => {
         if (err) throw new ApiError(httpStatus.NOT_IMPLEMENTED, "parcel updatation failed")
@@ -50,8 +48,8 @@ const findParcelByTrackingId = async ( id ) => {
     return await Parcel.findOne({tracking_id:id})
 }
 
-const findParcelDeliveries = async () => {
-    return await Parcel.find({status:true})
+const findParcelDeliveries = async (bool) => {
+    return await Parcel.find({status:bool })
 }
 
 const Parcels = async () => {

@@ -37,8 +37,8 @@ const Parcels = async () => {
     return config.isEmpty(data) ? data : new ApiError(httpStatus.NOT_FOUND, "no parcels")
 }
 
-const findParcelDeliveries = async () => {
-    const data = await parcelService.findParcelDeliveries()
+const findParcelDeliveries = async (bool) => {
+    const data = await parcelService.findParcelDeliveries(bool.status)
     return config.isEmpty(data) ? data : new ApiError(httpStatus.NOT_FOUND, "no delivered parcels")    
 }
 

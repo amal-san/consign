@@ -48,7 +48,7 @@ type Query {
   Login(username:String! password:String!):[LoginUserType]!
   ParcelInfo(tracking_id:String!):ParcelType
   Parcels: [ParcelType]!
-  DeliveredParcels: [ParcelType]
+  DeliveredParcels(status:Boolean!): [ParcelType]
 }
 `
 

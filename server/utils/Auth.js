@@ -1,4 +1,6 @@
+const httpStatus = require('http-status');
 const jwt = require('jsonwebtoken');
+const ApiError = require('./ApiError')
 
 const createToken = ( id ) => {
     let jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -11,13 +13,14 @@ const createToken = ( id ) => {
 }
 
 const validateToken = ( context ) => {
-    let token = context.request.headers.authorization.split("Bearer")[1].slice(1)
+    if(!context.request.body.headers.Authorization) return false
+    let token = context.request.body.headers.Authorization.split("Bearer")[1].slice(1)
     let jwtSecretKey = process.env.JWT_SECRET_KEY;
     try {
         const verified = jwt.verify(token, jwtSecretKey);
-        return verified ? true : new Error
+        return verified ? true : false
     } catch (error) {
-        return new ApiError(httpStatus.UNAUTHORIZED, "Please authenticate")
+        return false
     };
 }
 
