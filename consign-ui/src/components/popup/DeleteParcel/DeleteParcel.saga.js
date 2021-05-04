@@ -23,7 +23,8 @@ const deleteParcelApi = (parms) => {
             tracking_id:parms.tracking_id,
         },
         headers:{
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
     });
   };

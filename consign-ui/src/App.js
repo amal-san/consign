@@ -10,6 +10,7 @@ import axios from 'axios'
 import {
   HashRouter, Switch, Route
 } from 'react-router-dom'
+import ProtectedRoute from './components/protectedRoute/'
 
 
 axios.defaults.baseURL = 'https://consign-server.herokuapp.com/'
@@ -24,7 +25,9 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route path="/track" component={Track}/>
             <Route path="/login" component={Login}/>
-            <Route path="/admin" component={Admin}/>
+            <ProtectedRoute path="/admin">
+             <Admin/>
+            </ProtectedRoute>
           </Switch>
     </HashRouter>
   </Provider>

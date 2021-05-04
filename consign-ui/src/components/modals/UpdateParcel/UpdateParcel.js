@@ -95,8 +95,6 @@ const UpdateParcel = (props) => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
-  console.log(data.tracking_details)
   
   let timelinesteps = data ? (isEmpty(data.tracking_details) ? data.tracking_details.map((detail, i , array) => <Timeline.Item label={detail.date}  color={(i == 0 || i === array.length - 1) ? 'green' : 'blue'} key={`timeline-${i}`}>{detail.details}</Timeline.Item>): null):null;
 

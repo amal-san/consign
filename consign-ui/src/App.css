@@ -184,9 +184,22 @@ body {
 
 }
 
+
+.admin-menu > div > div  {
+  margin: 10px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background-color: #5effb2;
+  border: 1px solid #757d7b;
+  border-radius: 7px;
+  border-bottom: 4px solid #757d7b;
+  cursor:pointer;
+
+}
+
 .admin-menu > div > p  {
-  margin:.5rem;
-  padding:10px;
+  margin: 10px;
+  padding: 5px 10px;
   border-radius: 3px;
   background-color: #5effb2;
   border: 1px solid #757d7b;
@@ -346,4 +359,20 @@ body {
   .admin-ctn {
     height:auto!important;
   }
+}
+
+
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background: #5effb2!important;
+  border:1px solid #5effb2!important;
+  height:27px!important;
+}
+
+.sort {
+  max-height: 90%;
+}
+
+.ant-select-open {
+  border:none!important;
 }

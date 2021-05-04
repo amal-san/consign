@@ -10,6 +10,7 @@ import { isEmpty } from '../../utils/'
 
 
 
+
   
 
 const Login = (props) => {
@@ -22,10 +23,10 @@ const Login = (props) => {
     useEffect((i) => {
         if(isEmpty(error)){
             setIsLoading(false)
-            console.log(i)
             message.warn("Incorrect username or password")
         }
         if(isEmpty(data)){
+            localStorage.setItem('token', data.Login[0].token)
             history.push('/admin')
         }
     },[error, data])

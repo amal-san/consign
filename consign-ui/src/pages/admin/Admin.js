@@ -11,7 +11,9 @@ import { connect } from 'react-redux';
 import { getParcelsRequest } from './Admin.action'
 import { logoutRequest } from '../login/Login.action'
 import { isEmpty } from '../../utils'
-import GifLoader from 'react-gif-loader';
+import { Select } from 'antd';
+
+const { Option } = Select;
 
 
 
@@ -32,16 +34,28 @@ const Admin = (props) => {
 
     const history = useHistory();
 
-    const { getParcelsRequest , error , loading , data } = props;
+    let { getParcelsRequest , error , loading , data } = props;
+
 
     useEffect(()=> {
         getParcelsRequest();
+        
     },[])
 
     
 
+    const handleChange = (values) => {
+        let body = { params: values }
+        if(values === 'all'){
+            getParcelsRequest();
+        }
+        getParcelsRequest(body)
+    }
+    
+
     const onLogout = () => {
         props.logoutRequest();
+        localStorage.removeItem('token')
         history.push('/')
     }
 
@@ -55,8 +69,14 @@ const Admin = (props) => {
             <div className="admin-menu">
                 <div>
                     <CreateParcel/>
-                    <p> 🔀 Sort</p>
-                    <p> ⚙️ Account Settings </p>
+                    <div className="sort">
+                        <Select defaultValue="all" style={{ width: 120 }} onChange={handleChange}>
+                            <Option value="all"> All </Option>
+                            <Option value="delivered">Delivered</Option>
+                            <Option value="not-delivered">Not Delivered</Option>
+                        </Select>
+                    </div>
+                    {/* <p> ⚙️ Account Settings </p> */}
                 </div>
                 <div>
                  <p onClick={onLogout}>🔓 logout </p> 
@@ -64,7 +84,7 @@ const Admin = (props) => {
             </div>
             <div className="admin-box">
             {loading ? <ParcelCardLoader/>: null}
-            {isEmpty(data) ? data.Parcels.map((parcel,i) => 
+            {isEmpty(data) && !isEmpty(error) ? data.Parcels.map((parcel,i) => 
                 <ParcelCard
                 key={i}
                 id={parcel._id}

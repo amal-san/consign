@@ -4,8 +4,9 @@ export const Types = {
     GET_PARCELS_ERROR:'GET_PARCELS_ERROR'
   };
   
-  export const getParcelsRequest = () => ({
+  export const getParcelsRequest = (body) => ({
     type: Types.GET_PARCELS_REQUEST,
+    body
   })
 
   export const getParcelsSuccess = data => ({

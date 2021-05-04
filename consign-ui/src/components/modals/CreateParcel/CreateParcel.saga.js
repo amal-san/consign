@@ -28,7 +28,9 @@ const createParcelApi = (parms) => {
             receiver:parms.receiver
         },
         headers:{
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+
         }
     });
   };
