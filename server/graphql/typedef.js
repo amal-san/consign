@@ -4,6 +4,9 @@ type Mutation {
 	createUser(username:String! password:String! details:String): [LoginUserType]!
 	userUpdate(username:String! password:String!): UserType!
 	userDelete(username:String! password:String!): UserType!
+	createClient(name:String! age:String! address:String dob:String phone:String): ClientType!
+    updateClient(name:String!,age:String! address:String dob:String phone:String): ClientType!
+	deleteClient(name:String!): ClientType!
     createParcel(name:String! weight:String! receiver:String! sender:String! created_at:String): ParcelType!
     updateParcel(tracking_id:String! name:String weight:String receiver:String sender:String tracking_details:String status:Boolean): ParcelType!
     deleteParcel(tracking_id:String!): ParcelType!
@@ -17,10 +20,19 @@ type LoginUserType {
 }
 
 type UserType {
-	_id:String!
-	username:String!
-	password:String!
+    _id:String!
+    username:String!
+    password:String!
     details:String
+}
+
+type ClientType {
+    _id:String!
+    name:String!
+    age:String!
+    address:String
+    dob:String
+    phone:String
 }
 
 type TrackingDetailsType {
@@ -45,6 +57,7 @@ type ParcelType {
 type Query {
   Info: String!
   Users: [UserType]!
+  Clients: [ClientType]!
   Login(username:String! password:String!):[LoginUserType]!
   ParcelInfo(tracking_id:String!):ParcelType
   Parcels: [ParcelType]!

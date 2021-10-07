@@ -1,5 +1,6 @@
 const UserController = require('../controllers/user.controller')
 const ParcelController = require('../controllers/parcel.controller');
+const ClientController = require('../controllers/client.controller');
 const Auth  = require('../utils/Auth');
 const ApiError = require('../utils/ApiError');
 const httpStatus = require('http-status');
@@ -14,6 +15,8 @@ const resolvers = {
 
         Users: async () =>  UserController.Users(),
 
+	    Clients: async () => ClientController.Clients(),
+
         Login: async (parent, args) => UserController.userLogin(args),
 
         Parcels: async (parent, args, context) => 
@@ -27,6 +30,12 @@ const resolvers = {
     },
     Mutation: {
         createUser : async (parent, args) => UserController.createUser(args),
+
+	    createClient: async (parent, args) => ClientController.createClient(args),
+
+        updateClient: async (parent, args) => ClientController.updateClient(args),
+
+        deleteClient: async ( parent, args) => ClientController.deleteClient(args),
 
         createParcel : async (parent, args, context) => 
             Auth.validateToken(context) ? ParcelController.createParcel(args) : GraphQlError(),

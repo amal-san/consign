@@ -10,6 +10,7 @@ const app = new GraphQLServer({
 
 })
 
+//ladfa
 
 
 module.exports = app;
